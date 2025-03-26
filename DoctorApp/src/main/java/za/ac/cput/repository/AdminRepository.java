@@ -16,7 +16,7 @@ public class AdminRepository {
     // Read
     public Optional<Admin> findAdminById(int adminID) {
         return admins.stream()
-                .filter(admin -> admin.getAdminID() == adminID)  // Now using == for int comparison
+                .filter(admin -> admin.getAdminID() == adminID)
                 .findFirst();
     }
 

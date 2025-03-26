@@ -14,7 +14,7 @@ public class Admin {
     public int getAdminID() { return adminID; }
     public String getRole() { return role; }
 
-    // Builder class (EXACTLY matches Doctor's pattern)
+    // Builder class
     public static class Builder {
         private int adminID;
         private String role;
