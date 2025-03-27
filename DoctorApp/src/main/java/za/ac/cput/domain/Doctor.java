@@ -1,4 +1,4 @@
-package main.java.za.ac.cput.domain;
+package za.ac.cput.domain;
 
 public class Doctor {
     private String doctorID;

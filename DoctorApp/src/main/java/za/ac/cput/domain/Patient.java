@@ -3,7 +3,7 @@ Patient model class
 Author : Bruneez Apollis(222127600)
 Date: March 2025
  */
-package main.java.za.ac.cput.domain;
+package za.ac.cput.domain;
 
 import java.time.LocalDate;
 import java.util.List;

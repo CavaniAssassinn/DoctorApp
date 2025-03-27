@@ -1,6 +1,6 @@
-package main.java.za.ac.cput.factory;
+package za.ac.cput.factory;
 
-import main.java.za.ac.cput.domain.Doctor;
+import za.ac.cput.domain.Doctor;
 
 public class FactoryDoctor {
     public static Doctor createDoctor(String doctorID, String specialization, boolean availability) {

@@ -5,8 +5,8 @@ Date: March 2025
  */
 package za.ac.cput.factory;
 
-import main.java.za.ac.cput.domain.Patient;
-import main.java.za.ac.cput.util.Helper;
+import za.ac.cput.domain.Patient;
+import za.ac.cput.util.Helper;
 import java.time.LocalDate;
 import java.util.List;
 
