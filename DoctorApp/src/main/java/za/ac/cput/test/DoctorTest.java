@@ -1,5 +1,5 @@
-package main.java.za.ac.cput.test;
-import main.java.za.ac.cput.domain.Doctor;
+package za.ac.cput.test;
+import za.ac.cput.domain.Doctor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

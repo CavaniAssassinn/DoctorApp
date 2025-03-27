@@ -1,5 +1,5 @@
-package main.java.za.ac.cput.repository;
-import main.java.za.ac.cput.domain.Doctor;
+package za.ac.cput.repository;
+import za.ac.cput.domain.Doctor;
 
 import java.util.ArrayList;
 import java.util.List;

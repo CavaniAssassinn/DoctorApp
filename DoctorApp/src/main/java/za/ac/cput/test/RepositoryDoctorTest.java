@@ -1,7 +1,7 @@
-package main.java.za.ac.cput.test;
-import main.java.za.ac.cput.domain.Doctor;
-import main.java.za.ac.cput.factory.FactoryDoctor;
-import main.java.za.ac.cput.repository.RepositoryDoctor;
+package za.ac.cput.test;
+import za.ac.cput.domain.Doctor;
+import za.ac.cput.factory.FactoryDoctor;
+import za.ac.cput.repository.RepositoryDoctor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
