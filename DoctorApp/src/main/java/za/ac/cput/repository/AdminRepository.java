@@ -5,40 +5,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AdminRepository {
+public class AdminRepository implements IRepository<Admin> {
     private List<Admin> admins = new ArrayList<>();
 
-    // Create/Add
-    public void addAdmin(Admin admin) {
+    @Override
+    public Admin create(Admin admin) {
         admins.add(admin);
+        return admin;
     }
 
-    // Read
-    public Optional<Admin> findAdminById(int adminID) {
+    @Override
+    public Optional<Admin> read(int adminID) {
         return admins.stream()
                 .filter(admin -> admin.getAdminID() == adminID)
                 .findFirst();
     }
 
-    // Update
-    public Admin updateAdmin(Admin updatedAdmin) {
-        Optional<Admin> found = findAdminById(updatedAdmin.getAdminID());
-        if (found.isPresent()) {
-            admins.remove(found.get());
-            admins.add(updatedAdmin);
-            return updatedAdmin;
+    @Override
+    public Admin update(Admin updatedAdmin) {
+        for (int i = 0; i < admins.size(); i++) {
+            if (admins.get(i).getAdminID() == updatedAdmin.getAdminID()) {
+                admins.set(i, updatedAdmin);
+                return updatedAdmin;
+            }
         }
         return null;
     }
 
-    // Delete
-    public boolean removeAdmin(int adminID) {
-        return admins.removeIf(admin -> admin.getAdminID() == adminID);  // int comparison
+    @Override
+    public boolean delete(int adminID) {
+        return admins.removeIf(admin -> admin.getAdminID() == adminID);
     }
 
-    // Utility
-    public List<Admin> getAllAdmins() {
-        return new ArrayList<>(admins);  // Defensive copy
+    @Override
+    public List<Admin> findAll() {
+        return new ArrayList<>(admins); // Defensive copy
+    }
+
+    // Additional convenience methods
+    public void addAdmin(Admin admin) {
+        create(admin);
+    }
+
+    public Optional<Admin> findAdminById(int adminID) {
+        return read(adminID);
+    }
+
+    public boolean removeAdmin(int adminID) {
+        return delete(adminID);
     }
 
     public int getAdminCount() {
