@@ -2,6 +2,7 @@ package za.ac.cput.util;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class Helper {
@@ -49,5 +50,20 @@ public class Helper {
 
     public static boolean isValidList(List<Integer> appointmentsIDs) {
         return appointmentsIDs != null && !appointmentsIDs.isEmpty();
+    }
+
+    public static boolean isPositiveNumber(int number) {
+        return number > 0;
+    }
+
+    public static void validatePositiveNumber(int number, String errorMessage) {
+        if (!isPositiveNumber(number)) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    // Generate a unique appointment ID
+    public static int generateAppointmentID() {
+        return Math.abs(UUID.randomUUID().hashCode()); // Ensures a positive unique ID
     }
 }

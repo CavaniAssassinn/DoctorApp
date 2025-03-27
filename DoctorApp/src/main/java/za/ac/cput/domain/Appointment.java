@@ -1,8 +1,9 @@
 package za.ac.cput.domain;
 
+
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
 
 public class Appointment {
     int appointmentID;
@@ -37,9 +38,9 @@ public class Appointment {
         return status;
     }
 
-    public int getPatientID() {
+    /*public int getPatientID() {
         return patientID;
-    }
+    }*/
 
     public int getDoctorID() {
         return doctorID;
