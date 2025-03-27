@@ -1,3 +1,8 @@
+/* AdminRepository.java
+Admin model class
+Author : Nothile Cele - 230894356
+Date: March 2025
+ */
 package za.ac.cput.repository;
 
 import za.ac.cput.domain.Admin;
