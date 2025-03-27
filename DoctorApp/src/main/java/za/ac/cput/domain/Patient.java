@@ -16,6 +16,10 @@ public class Patient {
     private final String medicalHistory;
     private final List<Integer> appointmentsIDs;
 
+    public int getPatientID() {
+        return patientID;
+    }
+
     private Patient(Builder builder) {
         this.patientID = builder.patientID;
         this.patientName = builder.patientName;
