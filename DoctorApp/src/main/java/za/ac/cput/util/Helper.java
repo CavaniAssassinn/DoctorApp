@@ -1,6 +1,7 @@
 package za.ac.cput.util;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class Helper {
@@ -40,5 +41,13 @@ public class Helper {
         if (!isValidEmail(email)) {
             throw new IllegalArgumentException(errorMessage);
         }
+    }
+
+    public static boolean isValidID(int patientID) {
+        return patientID > 0;
+    }
+
+    public static boolean isValidList(List<Integer> appointmentsIDs) {
+        return appointmentsIDs != null && !appointmentsIDs.isEmpty();
     }
 }

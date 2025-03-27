@@ -22,6 +22,11 @@ public class AppointmentRepository implements IRepository<Appointment> {
                 .findFirst();    }
 
     @Override
+    public Optional<Appointment> readString(String id) {
+        return Optional.empty();
+    }
+
+    @Override
     public Appointment update(Appointment appointment) {
         for (int i = 0; i < appointments.size(); i++) {
             if (appointments.get(i).getAppointmentID() == appointment.getAppointmentID()) {
@@ -34,6 +39,11 @@ public class AppointmentRepository implements IRepository<Appointment> {
     @Override
     public boolean delete(int appointmentID) {
         return appointments.removeIf(appointment -> appointment.getAppointmentID() == appointmentID);
+    }
+
+    @Override
+    public boolean deleteString(String id) {
+        return false;
     }
 
     @Override
