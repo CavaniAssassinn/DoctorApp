@@ -11,8 +11,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public  class PatientRepository implements IRepository<Patient>{
-    private final List<Patient> patients = new ArrayList<>();
+public  class PatientRepository implements IPatientRepository{
+
+    private static PatientRepository repository = null; // Singleton instance
+    private final List<Patient> patients;
+
+    // Private constructor for Singleton
+    private PatientRepository() {
+        patients = new ArrayList<>();
+    }
+
+    // Singleton getInstance method
+    public static PatientRepository getInstance() {
+        if (repository == null) {
+            repository = new PatientRepository();
+        }
+        return repository;
+    }
 
     @Override
     public Patient create(Patient patient) {
@@ -20,51 +35,37 @@ public  class PatientRepository implements IRepository<Patient>{
         return patient;
     }
 
-
     @Override
-    public Optional<Patient> readString(String id) { // Changed int to String
+    public Optional<Patient> read(Integer id) { // Using Integer for Patient ID
         return patients.stream()
-                .filter(patient -> patient.getPatientID().equals(id)) // String comparison
+                .filter(patient -> patient.getPatientID()==id) // Integer comparison
                 .findFirst();
     }
 
     @Override
     public Patient update(Patient patient) {
-        Optional<Patient> existingPatient = readString(patient.getPatientID());
+        Optional<Patient> existingPatient = read(patient.getPatientID());
         if (existingPatient.isPresent()) {
-            deleteString(patient.getPatientID()); // Ensure valid deletion
+            delete(patient.getPatientID()); // Remove old patient
             patients.add(patient);
             return patient;
         }
-        return null; // Return null if patient doesn't exist
+        return null; // Patient not found
     }
 
-
-    // Implement delete(int id) - Not applicable for Patient
     @Override
-    public boolean delete(int id) {
-        return false;
-      //  throw new UnsupportedOperationException("Patient ID is a String, not an int.");
+    public void delete(Integer id) {
+        patients.removeIf(patient -> patient.getPatientID()==id);
     }
 
-
     @Override
-    public List<Patient> findAll() {
+    public List<Patient> getAll() {
         return new ArrayList<>(patients);
     }
 
-    // Implementing read(int id) - Not applicable for Patient,
     @Override
-    public Optional<Patient> read(int id) {
-        return Optional.empty();  // or throw an exception
-        //throw new UnsupportedOperationException("Patient ID is a String, not an int.");
-
-    }
-
-
-    @Override
-    public boolean deleteString(String id) {
-        return patients.removeIf(patient -> patient.getPatientID().equals(id));
+    public boolean existsById(Integer id) {
+        return patients.stream().anyMatch(patient -> patient.getPatientID()==id);
     }
 }
 

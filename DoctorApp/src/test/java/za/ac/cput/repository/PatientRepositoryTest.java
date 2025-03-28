@@ -1,3 +1,8 @@
+/* PatientRepositoryTest.java
+Patient model
+Author : Bruneez Apollis(222127600)
+Date: March 2025
+ */
 package za.ac.cput.repository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,17 +21,17 @@ class PatientRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        repository = new PatientRepository();
+        repository = PatientRepository.getInstance();
 
         patient1 = new Patient.Builder()
-                .setPatientID("P001")
+                .setPatientID(100)
                 .setPatientName("John")
                 .setPatientSurname("Doe")
                 .setDateOfBirth(LocalDate.of(1990, 5, 15))
                 .build();
 
         patient2 = new Patient.Builder()
-                .setPatientID("P002")
+                .setPatientID(102)
                 .setPatientName("Alice")
                 .setPatientSurname("Smith")
                 .setDateOfBirth(LocalDate.of(1985, 10, 22))
@@ -40,7 +45,7 @@ class PatientRepositoryTest {
     @Test
     void create() {
         Patient newPatient = new Patient.Builder()
-                .setPatientID("P003")
+                .setPatientID(103)
                 .setPatientName("Bob")
                 .setPatientSurname("Marley")
                 .setDateOfBirth(LocalDate.of(1980, 3, 12))
@@ -48,12 +53,12 @@ class PatientRepositoryTest {
 
         Patient created = repository.create(newPatient);
         assertNotNull(created);
-        assertEquals("P003", created.getPatientID());
+        assertEquals(103, created.getPatientID());
     }
 
     @Test
     void readString() {
-        Optional<Patient> found = repository.readString("P001");
+        Optional<Patient> found = repository.read(100);
         assertTrue(found.isPresent());
         assertEquals("John", found.get().getPatientName());
     }
@@ -61,7 +66,7 @@ class PatientRepositoryTest {
     @Test
     void update() {
         Patient updatedPatient = new Patient.Builder()
-                .setPatientID("P001") // Same ID as patient1
+                .setPatientID(104) // Same ID as patient1
                 .setPatientName("Johnathan") // Updated name
                 .setPatientSurname("Doe")
                 .setDateOfBirth(LocalDate.of(1990, 5, 15))
@@ -74,13 +79,13 @@ class PatientRepositoryTest {
 
     @Test
     void delete() {
-        boolean result = repository.delete(1); // Since delete(int) is not applicable
-        assertFalse(result); // Should return false
+        repository.delete(101); // Since delete(int) is not applicable
+        assertFalse(repository.existsById(101)); // Should return false
     }
 
     @Test
     void findAll() {
-        List<Patient> patients = repository.findAll();
+        List<Patient> patients = repository.getAll();
         assertEquals(2, patients.size()); // Since we added 2 patients in setUp()
     }
 
@@ -88,12 +93,5 @@ class PatientRepositoryTest {
     void read() {
         Optional<Patient> result = repository.read(1); // Since read(int) is not applicable
         assertTrue(result.isEmpty()); // Should return an empty Optional
-    }
-
-    @Test
-    void deleteString() {
-        boolean deleted = repository.deleteString("P002");
-        assertTrue(deleted);
-        assertFalse(repository.readString("P002").isPresent());
     }
 }
