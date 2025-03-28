@@ -1,3 +1,7 @@
+/* AppointmentFactory Test.java
+Appointment model
+Author : Nathan Antha(219474893)
+Date: March 2025*/
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
@@ -23,10 +27,8 @@ class AppointmentFactoryTest {
         int patientID = 101;
         int doctorID = 202;
 
-        // When
         Appointment appointment = AppointmentFactory.createAppointment(appointmentID, date, time, status, patientID, doctorID);
 
-        // Then
         assertNotNull(appointment);
         assertEquals(appointmentID, appointment.getAppointmentID());
         assertEquals(date, appointment.getDate());
@@ -46,7 +48,6 @@ class AppointmentFactoryTest {
         int patientID = 101;
         int doctorID = 202;
 
-        // Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
                 AppointmentFactory.createAppointment(appointmentID, pastDate, time, status, patientID, doctorID)
         );
@@ -63,7 +64,6 @@ class AppointmentFactoryTest {
         int patientID = 101;
         int doctorID = 202;
 
-        // Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
                 AppointmentFactory.createAppointment(appointmentID, date, time, null, patientID, doctorID)
         );
