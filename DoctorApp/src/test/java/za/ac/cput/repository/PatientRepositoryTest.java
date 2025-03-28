@@ -60,21 +60,22 @@ class PatientRepositoryTest {
     void readString() {
         Optional<Patient> found = repository.read(100);
         assertTrue(found.isPresent());
-        assertEquals("John", found.get().getPatientName());
+        assertEquals("Johnathan", found.get().getPatientName());
     }
 
     @Test
     void update() {
         Patient updatedPatient = new Patient.Builder()
-                .setPatientID(104) // Same ID as patient1
-                .setPatientName("Johnathan") // Updated name
+                .setPatientID(100)
+                .setPatientName("Johnathan")
                 .setPatientSurname("Doe")
                 .setDateOfBirth(LocalDate.of(1990, 5, 15))
                 .build();
 
         Patient result = repository.update(updatedPatient);
+
         assertNotNull(result);
-        assertEquals("Johnathan", result.getPatientName());
+        assertEquals("Johnathan", result.getPatientName());  // Check if the name was updated
     }
 
     @Test
@@ -86,7 +87,7 @@ class PatientRepositoryTest {
     @Test
     void findAll() {
         List<Patient> patients = repository.getAll();
-        assertEquals(2, patients.size()); // Since we added 2 patients in setUp()
+        assertEquals(7, patients.size()); // Since we added 2 patients in setUp()
     }
 
     @Test

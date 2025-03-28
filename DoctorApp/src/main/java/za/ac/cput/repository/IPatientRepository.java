@@ -11,11 +11,9 @@ import java.util.List;
 
 public interface IPatientRepository extends IRepository<Patient, Integer> {
 
-    // Find all patients
     List<Patient> getAll();
 
 
-    // Check if a patient exists by ID
-    // mmm
+
     boolean existsById(Integer id);
 }

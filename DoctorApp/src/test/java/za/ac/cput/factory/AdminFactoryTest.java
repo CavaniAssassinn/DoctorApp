@@ -45,10 +45,8 @@ class AdminFactoryTest {
         AdminRepository repo1 = AdminRepository.getInstance();
         AdminRepository repo2 = AdminRepository.getInstance();
 
-        // Test singleton
         assertSame(repo1, repo2, "Both instances should be the same");
 
-        // Test repository functionality
         Admin admin = AdminFactory.createBasicAdmin(3, "Test Admin");
         repo1.create(admin);
 
@@ -58,19 +56,15 @@ class AdminFactoryTest {
 
     @Test
     void testInvalidInputs() {
-        // Test invalid admin ID
         assertThrows(IllegalArgumentException.class, () ->
                 AdminFactory.createAdmin(0, "Admin", "ADM_001", "Name", "email@test.com", "0821234567"));
 
-        // Test null role
         assertThrows(IllegalArgumentException.class, () ->
                 AdminFactory.createAdmin(1, null, "ADM_001", "Name", "email@test.com", "0821234567"));
 
-        // Test invalid email
         assertThrows(IllegalArgumentException.class, () ->
                 AdminFactory.createAdmin(1, "Admin", "ADM_001", "Name", "invalid-email", "0821234567"));
 
-        // Test invalid phone number
         assertThrows(IllegalArgumentException.class, () ->
                 AdminFactory.createAdmin(1, "Admin", "ADM_001", "Name", "email@test.com", "123"));
     }

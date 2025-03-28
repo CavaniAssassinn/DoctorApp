@@ -51,14 +51,12 @@ public class RepositoryDoctor implements IRepositoryDoctor {
                 .findFirst();
     }
 
-
-
     @Override
     public Doctor update(Doctor doctor) {
         Optional<Doctor> existingDoctor = readString(doctor.getDoctorID());
         if (existingDoctor.isPresent()) {
-            deleteString(doctor.getDoctorID());
-            create(doctor);
+            deleteString(doctor.getDoctorID());  // Remove the old doctor
+            create(doctor);  // Add the updated doctor
             return doctor;
         } else {
             throw new IllegalArgumentException("Doctor with ID " + doctor.getDoctorID() + " does not exist.");
@@ -68,6 +66,7 @@ public class RepositoryDoctor implements IRepositoryDoctor {
     @Override
     public void delete(String id) {
         deleteString(id);
+
     }
 
     @Override
@@ -75,9 +74,11 @@ public class RepositoryDoctor implements IRepositoryDoctor {
         Optional<Doctor> doctorToRemove = readString(id);
         if (doctorToRemove.isPresent()) {
             doctors.remove(doctorToRemove.get());
-        } else {
-            throw new IllegalArgumentException("Doctor with ID " + id + " does not exist.");
         }
+    }
+
+    public void clear() {
+        doctors.clear(); // Clear the doctors list before running tests.
     }
 
     @Override
@@ -85,4 +86,3 @@ public class RepositoryDoctor implements IRepositoryDoctor {
         return new ArrayList<>(doctors);
     }
 }
-
