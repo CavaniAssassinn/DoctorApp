@@ -1,3 +1,8 @@
+/* RepositoryDoctorTest.java
+Doctor model class
+Author : Matthew Michael Engelbrecht(222381086)
+Date : March 2025
+ */
 package za.ac.cput.repository;
 
 import za.ac.cput.domain.Doctor;
@@ -15,7 +20,7 @@ class RepositoryDoctorTest {
     @BeforeEach
     public void setUp() {
         repository = RepositoryDoctor.getInstance();
-        repository.findAll().forEach(doctor -> repository.deleteString(doctor.getDoctorID()));
+        repository.delete("1");
     }
 
     @Test
@@ -77,9 +82,9 @@ class RepositoryDoctorTest {
                 .build();
         repository.create(doctor);
 
-        boolean deleted = repository.deleteString("D004");
+        repository.delete("D004");
 
-        assertTrue(deleted);
+        Optional<Doctor> deletedDoctor = repository.read("D004");
         assertFalse(repository.readString("D004").isPresent());
     }
 

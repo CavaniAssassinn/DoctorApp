@@ -1,4 +1,8 @@
-
+/* RepositoryDoctor.java
+Doctor model class
+Author : Matthew Michael Engelbrecht(222381086)
+Date : March 2025
+ */
 package za.ac.cput.repository;
 
 import za.ac.cput.domain.Doctor;
@@ -7,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositoryDoctor implements IRepository<Doctor> {
+public class RepositoryDoctor implements IRepositoryDoctor {
     private static RepositoryDoctor instance;
     private final List<Doctor> doctors;
 
@@ -36,8 +40,8 @@ public class RepositoryDoctor implements IRepository<Doctor> {
     }
 
     @Override
-    public Optional<Doctor> read(int id) {
-        return Optional.empty();
+    public Optional<Doctor> read(String id) {
+        return readString(id);
     }
 
     @Override
@@ -46,6 +50,8 @@ public class RepositoryDoctor implements IRepository<Doctor> {
                 .filter(doctor -> doctor.getDoctorID().equals(id))
                 .findFirst();
     }
+
+
 
     @Override
     public Doctor update(Doctor doctor) {
@@ -60,18 +66,18 @@ public class RepositoryDoctor implements IRepository<Doctor> {
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(String id) {
+        deleteString(id);
     }
 
     @Override
-    public boolean deleteString(String id) {
+    public void deleteString(String id) {
         Optional<Doctor> doctorToRemove = readString(id);
         if (doctorToRemove.isPresent()) {
             doctors.remove(doctorToRemove.get());
-            return true;
+        } else {
+            throw new IllegalArgumentException("Doctor with ID " + id + " does not exist.");
         }
-        return false;
     }
 
     @Override
