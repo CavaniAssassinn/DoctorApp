@@ -1,4 +1,8 @@
-package za.ac.cput.factory;
+/* PatientRepository.java
+Patient model
+Author : Bruneez Apollis(222127600)
+Date: March 2025
+ */package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Patient;
@@ -11,7 +15,7 @@ class FactoryPatientTest {
 
     @Test
     public void createPatient_ValidInput() {
-        String patientID = "P001";
+        int patientID = 101;
         String patientName = "John";
         String patientSurname = "Doe";
         LocalDate dateOfBirth = LocalDate.of(1990, 5, 15);
@@ -27,7 +31,7 @@ class FactoryPatientTest {
 
     @Test
     public void createPatient_NullPatientID() {
-        String patientID = null;
+        int patientID = 0;
         String patientName = "John";
         String patientSurname = "Doe";
         LocalDate dateOfBirth = LocalDate.of(1990, 5, 15);
@@ -36,20 +40,10 @@ class FactoryPatientTest {
         assertNull(patient);
     }
 
-    @Test
-    public void createPatient_EmptyPatientID() {
-        String patientID = "";
-        String patientName = "John";
-        String patientSurname = "Doe";
-        LocalDate dateOfBirth = LocalDate.of(1990, 5, 15);
-
-        Patient patient = FactoryPatient.createPatient(patientID, patientName, patientSurname, dateOfBirth);
-        assertNull(patient);
-    }
 
     @Test
     public void createPatient_NullPatientName() {
-        String patientID = "P002";
+        int patientID = 102;
         String patientName = null;
         String patientSurname = "Doe";
         LocalDate dateOfBirth = LocalDate.of(1990, 5, 15);
@@ -60,7 +54,7 @@ class FactoryPatientTest {
 
     @Test
     public void createPatient_EmptyPatientName() {
-        String patientID = "P002";
+        int patientID = 103;
         String patientName = "";
         String patientSurname = "Doe";
         LocalDate dateOfBirth = LocalDate.of(1990, 5, 15);
@@ -71,7 +65,7 @@ class FactoryPatientTest {
 
     @Test
     public void createPatient_NullDateOfBirth() {
-        String patientID = "P003";
+        int patientID = 104;
         String patientName = "Jane";
         String patientSurname = "Smith";
         LocalDate dateOfBirth = null;
@@ -82,7 +76,7 @@ class FactoryPatientTest {
 
     @Test
     public void createPatient_ValidDifferentPatient() {
-        String patientID = "P004";
+        int patientID = 105;
         String patientName = "Alice";
         String patientSurname = "Brown";
         LocalDate dateOfBirth = LocalDate.of(1985, 10, 20);

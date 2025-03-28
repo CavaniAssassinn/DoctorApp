@@ -12,10 +12,10 @@ import java.util.List;
 
 
 public class FactoryPatient {
-    public static Patient createPatient(String patientID, String patientName, String patientSurname,
+    public static Patient createPatient(int patientID, String patientName, String patientSurname,
                                         LocalDate dateOfBirth) {
 
-        if (Helper.isNullOrEmpty(patientID) ||
+        if (Helper.isValidID(patientID) ||
                 Helper.isNullOrEmpty(patientName) ||
                 Helper.isNullOrEmpty(patientSurname) ||
                 Helper.isNull(dateOfBirth)) {

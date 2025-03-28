@@ -9,13 +9,13 @@ import java.time.LocalDate;
 
 
 public class Patient {
-    private final String patientID;
+    private final int patientID;
     private final String patientName;
     private final String patientSurname;
     private final LocalDate dateOfBirth;
 
 
-    public String getPatientID() {
+    public int getPatientID() {
         return patientID;
     }
     public String getPatientName(){return patientName;}
@@ -33,13 +33,13 @@ public class Patient {
 
     // Inner Builder class
     public static class Builder {
-        private String patientID;
+        private int patientID;
         private String patientName;
         private String patientSurname;
         private LocalDate dateOfBirth;
 
 
-        public Builder setPatientID(String patientID) {
+        public Builder setPatientID(int patientID) {
             this.patientID = patientID;
             return this;
         }
