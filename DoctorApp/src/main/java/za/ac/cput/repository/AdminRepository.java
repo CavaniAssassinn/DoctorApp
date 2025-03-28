@@ -10,9 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AdminRepository implements IRepository<Admin> {
-    private List<Admin> admins = new ArrayList<>();
+public class AdminRepository implements IAdminRepository {
+    private static AdminRepository instance;
+    private final List<Admin> admins;
 
+    private AdminRepository() {
+        admins = new ArrayList<>();
+    }
+
+    public static synchronized AdminRepository getInstance() {
+        if (instance == null) {
+            instance = new AdminRepository();
+        }
+        return instance;
+    }
+
+    // IRepository<Admin, Integer> methods
     @Override
     public Admin create(Admin admin) {
         admins.add(admin);
@@ -20,10 +33,8 @@ public class AdminRepository implements IRepository<Admin> {
     }
 
     @Override
-    public Optional<Admin> read(int adminID) {
-        return admins.stream()
-                .filter(admin -> admin.getAdminID() == adminID)
-                .findFirst();
+    public Optional<Admin> read(Integer adminID) {
+        return findAdminById(adminID);
     }
 
     @Override
@@ -38,29 +49,35 @@ public class AdminRepository implements IRepository<Admin> {
     }
 
     @Override
-    public boolean delete(int adminID) {
-        return admins.removeIf(admin -> admin.getAdminID() == adminID);
+    public void delete(Integer adminID) {
+        admins.removeIf(admin -> admin.getAdminID() == adminID);
     }
 
+    // IAdminRepository methods
     @Override
-    public List<Admin> findAll() {
-        return new ArrayList<>(admins); // Defensive copy
-    }
-
-    // Additional convenience methods
     public void addAdmin(Admin admin) {
         create(admin);
     }
 
+    @Override
     public Optional<Admin> findAdminById(int adminID) {
-        return read(adminID);
+        return admins.stream()
+                .filter(admin -> admin.getAdminID() == adminID)
+                .findFirst();
     }
 
+    @Override
     public boolean removeAdmin(int adminID) {
-        return delete(adminID);
+        return admins.removeIf(admin -> admin.getAdminID() == adminID);
     }
 
+    @Override
     public int getAdminCount() {
         return admins.size();
+    }
+
+    @Override
+    public List<Admin> findAll() {
+        return new ArrayList<>(admins);  // Defensive copy
     }
 }
