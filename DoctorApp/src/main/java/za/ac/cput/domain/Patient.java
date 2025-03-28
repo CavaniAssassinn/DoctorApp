@@ -6,39 +6,40 @@ Date: March 2025
 package za.ac.cput.domain;
 
 import java.time.LocalDate;
-import java.util.List;
+
 
 public class Patient {
-    private final int patientID;
+    private final String patientID;
     private final String patientName;
     private final String patientSurname;
     private final LocalDate dateOfBirth;
-    private final String medicalHistory;
-    private final List<Integer> appointmentsIDs;
 
-    public int getPatientID() {
+
+    public String getPatientID() {
         return patientID;
     }
+    public String getPatientName(){return patientName;}
+    public String getPatientSurname(){return patientSurname;}
+    public LocalDate getDateOfBirth(){return dateOfBirth;}
+
 
     private Patient(Builder builder) {
         this.patientID = builder.patientID;
         this.patientName = builder.patientName;
         this.patientSurname = builder.patientSurname;
         this.dateOfBirth = builder.dateOfBirth;
-        this.medicalHistory = builder.medicalHistory;
-        this.appointmentsIDs = builder.appointmentsIDs;
+
     }
 
     // Inner Builder class
     public static class Builder {
-        private int patientID;
+        private String patientID;
         private String patientName;
         private String patientSurname;
         private LocalDate dateOfBirth;
-        private String medicalHistory;
-        private List<Integer> appointmentsIDs;
 
-        public Builder setPatientID(int patientID) {
+
+        public Builder setPatientID(String patientID) {
             this.patientID = patientID;
             return this;
         }
@@ -58,15 +59,7 @@ public class Patient {
             return this;
         }
 
-        public Builder setMedicalHistory(String medicalHistory) {
-            this.medicalHistory = medicalHistory;
-            return this;
-        }
 
-        public Builder setAppointmentsIDs(List<Integer> appointmentsIDs) {
-            this.appointmentsIDs = appointmentsIDs;
-            return this;
-        }
 
         public Patient build() {
             return new Patient(this);
@@ -80,10 +73,10 @@ public class Patient {
                 ", name='" + patientName + '\'' +
                 ", surname='" + patientSurname + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", medicalHistory='" + medicalHistory + '\'' +
-                ", appointmentsIDs=" + appointmentsIDs +
                 '}';
     }
+
+
 }
 
 
