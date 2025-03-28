@@ -1,3 +1,7 @@
+/* AppointmentRepositoryTest.java
+Appointment model
+Author : Nathan Antha(219474893)
+Date: March 2025*/
 package za.ac.cput.repository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +22,7 @@ class AppointmentRepositoryTest {
     @BeforeEach
     void setUp() {
 
-        repository = new AppointmentRepository();
+        repository = AppointmentRepository.getInstance();
 
         appointment = new Appointment.AppointmentBuilder()
                 .setAppointmentID(Helper.generateAppointmentID())
@@ -28,6 +32,8 @@ class AppointmentRepositoryTest {
                 .setPatientID(101)
                 .setDoctorID(202)
                 .build();
+
+        repository.getAll().add(appointment);
 
         repository.create(appointment);
 
@@ -76,4 +82,5 @@ class AppointmentRepositoryTest {
 
         assertFalse(repository.read(appointment.getAppointmentID()).isPresent());
     }
+
 }
