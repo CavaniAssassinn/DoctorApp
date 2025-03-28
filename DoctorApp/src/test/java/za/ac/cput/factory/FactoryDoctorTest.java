@@ -34,7 +34,7 @@ class FactoryDoctorTest {
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             FactoryDoctor.createDoctor(doctorID, specialization, availability);
         });
-        assertEquals("Doctor ID  cannot be null or empty", exception.getMessage());
+        assertEquals("Doctor ID cannot be null or empty", exception.getMessage());
     }
 
     @Test
@@ -46,6 +46,8 @@ class FactoryDoctorTest {
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             FactoryDoctor.createDoctor(doctorID, specialization, availability);
         });
+        assertEquals("Doctor ID cannot be null or empty", exception.getMessage());
+
     }
 
     @Test

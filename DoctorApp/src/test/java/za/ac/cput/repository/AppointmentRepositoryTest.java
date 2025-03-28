@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class AppointmentRepositoryTest {
 
     private AppointmentRepository repository;
@@ -78,7 +79,6 @@ class AppointmentRepositoryTest {
     void deleteAppointment_success() {
 
         repository.delete(appointment.getAppointmentID());
-
 
         assertFalse(repository.read(appointment.getAppointmentID()).isPresent());
     }
