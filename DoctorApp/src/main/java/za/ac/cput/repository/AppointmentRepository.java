@@ -4,8 +4,9 @@ import za.ac.cput.domain.Appointment;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-public class AppointmentRepository implements IRepository<Appointment> {
+public class AppointmentRepository implements IAppointmentRepository {
 
     private List<Appointment> appointments;
 
@@ -49,5 +50,10 @@ public class AppointmentRepository implements IRepository<Appointment> {
     @Override
     public List<Appointment> findAll() {
         return appointments;
+    }
+
+    @Override
+    public Set<Appointment> getAll() {
+        return Set.of();
     }
 }
