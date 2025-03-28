@@ -1,3 +1,8 @@
+/* AdminRepository.java
+Admin model class
+Author : Nothile Cele - 230894356
+Date: March 2025
+ */
 package za.ac.cput.repository;
 
 import za.ac.cput.domain.Admin;
@@ -5,43 +10,74 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AdminRepository {
-    private List<Admin> admins = new ArrayList<>();
+public class AdminRepository implements IAdminRepository {
+    private static AdminRepository instance;
+    private final List<Admin> admins;
 
-    // Create/Add
-    public void addAdmin(Admin admin) {
-        admins.add(admin);
+    private AdminRepository() {
+        admins = new ArrayList<>();
     }
 
-    // Read
+    public static synchronized AdminRepository getInstance() {
+        if (instance == null) {
+            instance = new AdminRepository();
+        }
+        return instance;
+    }
+
+    // IRepository<Admin, Integer> methods
+    @Override
+    public Admin create(Admin admin) {
+        admins.add(admin);
+        return admin;
+    }
+
+    @Override
+    public Optional<Admin> read(Integer adminID) {
+        return findAdminById(adminID);
+    }
+
+    @Override
+    public Admin update(Admin updatedAdmin) {
+        for (int i = 0; i < admins.size(); i++) {
+            if (admins.get(i).getAdminID() == updatedAdmin.getAdminID()) {
+                admins.set(i, updatedAdmin);
+                return updatedAdmin;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void delete(Integer adminID) {
+        admins.removeIf(admin -> admin.getAdminID() == adminID);
+    }
+
+    // IAdminRepository methods
+    @Override
+    public void addAdmin(Admin admin) {
+        create(admin);
+    }
+
+    @Override
     public Optional<Admin> findAdminById(int adminID) {
         return admins.stream()
                 .filter(admin -> admin.getAdminID() == adminID)
                 .findFirst();
     }
 
-    // Update
-    public Admin updateAdmin(Admin updatedAdmin) {
-        Optional<Admin> found = findAdminById(updatedAdmin.getAdminID());
-        if (found.isPresent()) {
-            admins.remove(found.get());
-            admins.add(updatedAdmin);
-            return updatedAdmin;
-        }
-        return null;
-    }
-
-    // Delete
+    @Override
     public boolean removeAdmin(int adminID) {
-        return admins.removeIf(admin -> admin.getAdminID() == adminID);  // int comparison
+        return admins.removeIf(admin -> admin.getAdminID() == adminID);
     }
 
-    // Utility
-    public List<Admin> getAllAdmins() {
-        return new ArrayList<>(admins);  // Defensive copy
-    }
-
+    @Override
     public int getAdminCount() {
         return admins.size();
+    }
+
+    @Override
+    public List<Admin> findAll() {
+        return new ArrayList<>(admins);  // Defensive copy
     }
 }
