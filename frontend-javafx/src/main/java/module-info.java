@@ -7,6 +7,7 @@ module za.ac.cput.frontendjavafx {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
+    requires com.google.gson;
 
     // FXML reflection access
     opens za.ac.cput.frontendjavafx.controllers to javafx.fxml;
