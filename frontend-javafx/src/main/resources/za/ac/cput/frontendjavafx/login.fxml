@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="za.ac.cput.frontendjavafx.controllers.LoginController">
+    <center>
+        <VBox spacing="12.0" alignment="CENTER">
+            <padding><Insets top="40" bottom="40" left="40" right="40"/></padding>
+            <Label text="Doctor Booking — Patient Login" style="-fx-font-size: 20;"/>
+            <TextField fx:id="emailField" promptText="Email"/>
+            <PasswordField fx:id="passwordField" promptText="Password"/>
+            <Button fx:id="loginBtn" text="Login" onAction="#onLogin" maxWidth="200"/>
+            <Label fx:id="statusLabel" textFill="grey"/>
+        </VBox>
+    </center>
+</BorderPane>

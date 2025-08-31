@@ -1,0 +1,8 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1   #  all URLs start with /api/v1
+spring:
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
