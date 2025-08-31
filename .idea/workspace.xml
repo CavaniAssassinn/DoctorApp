@@ -4,59 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c7c586c-aac8-487b-b66b-9d14a8d1cf37" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/za/ac/cput/DoctorAppApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/za/ac/cput/controller/PingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/za/ac/cput/security/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/MainApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/api/ApiClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/SearchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/login.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/search.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DoctorApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DoctorApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/domain/Admin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/domain/Appointment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/domain/Doctor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/domain/Patient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/domain/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/factory/AdminFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/factory/AppointmentFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/factory/FactoryDoctor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/factory/FactoryPatient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/factory/UserFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/AdminRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/AppointmentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/IAdminRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/IAppointmentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/IPatientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/IRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/IRepositoryDoctor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/IUserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/PatientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/RepositoryDoctor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/main/java/za/ac/cput/util/Helper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/factory/AdminFactoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/factory/AppointmentFactoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/factory/FactoryDoctorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/factory/FactoryPatientTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/factory/UserFactoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/repository/AdminRepositoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/repository/AppointmentRepositoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/repository/PatientRepositoryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/repository/RepositoryDoctorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoctorApp/src/test/java/za/ac/cput/repository/UserRepositoryTest.java" beforeDir="false" />
+    <list default="true" id="8c7c586c-aac8-487b-b66b-9d14a8d1cf37" name="Changes" comment="I've made some progress, the registration page has been made of course,">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/za/ac/cput/doctorappdb.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/registration.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,29 +17,36 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "CavaniAssassinn"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CavaniAssassinn&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/CavaniAssassinn/DoctorApp.git",
-    "accountId": "cacd0dba-fa8b-4087-8102-45853298de81"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CavaniAssassinn/DoctorApp.git&quot;,
+    &quot;accountId&quot;: &quot;cacd0dba-fa8b-4087-8102-45853298de81&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="323MzHazf9zAXwnVVteaz2WsE78" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -98,7 +56,7 @@
     "Maven.DoctorApp [org.springframework.boot:spring-boot-maven-plugin:3.3.2:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "222381086",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Appdev/DoctorApp",
     "node.js.detected.package.eslint": "true",
@@ -112,6 +70,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="DoctorAppApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="DoctorApp" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="za.ac.cput.DoctorAppApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -134,5 +101,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="I've made some progress, the registration page has been made of course," />
+    <option name="LAST_COMMIT_MESSAGE" value="I've made some progress, the registration page has been made of course," />
   </component>
 </project>
