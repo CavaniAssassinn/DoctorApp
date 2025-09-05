@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="za.ac.cput.frontendjavafx.controllers.DoctorDashboardController">
+    <top>
+        <HBox spacing="10" padding="10">
+            <Label text="Doctor Dashboard"/>
+            <Label fx:id="statusLabel" textFill="grey"/>
+        </HBox>
+    </top>
+    <center>
+        <GridPane hgap="10" vgap="10" padding="10">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="75"/>
+            </columnConstraints>
+
+            <Label text="Weekly Availability" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+            <Label text="Day of Week (1=Mon)" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="dayOfWeekBox" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Start (HH:mm)" GridPane.rowIndex="2"/>
+            <TextField fx:id="startField" promptText="09:00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="End (HH:mm)" GridPane.rowIndex="3"/>
+            <TextField fx:id="endField" promptText="13:00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Slot Minutes" GridPane.rowIndex="4"/>
+            <TextField fx:id="slotMinutesField" promptText="20" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Button text="Save Availability" onAction="#onSaveAvailability" GridPane.rowIndex="5" GridPane.columnIndex="1" fx:id="saveAvailabilityBtn"/>
+
+            <Separator GridPane.rowIndex="6" GridPane.columnSpan="2"/>
+
+            <Label text="Add Time Off" GridPane.rowIndex="7" GridPane.columnSpan="2"/>
+            <Label text="Date" GridPane.rowIndex="8"/>
+            <DatePicker fx:id="timeOffDate" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+            <Label text="Start (HH:mm)" GridPane.rowIndex="9"/>
+            <TextField fx:id="timeOffStartField" promptText="09:00" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+            <Label text="End (HH:mm)" GridPane.rowIndex="10"/>
+            <TextField fx:id="timeOffEndField" promptText="12:00" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+            <Label text="Reason" GridPane.rowIndex="11"/>
+            <TextField fx:id="timeOffReasonField" promptText="Conference" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+            <Button text="Add Time Off" onAction="#onAddTimeOff" GridPane.rowIndex="12" GridPane.columnIndex="1" fx:id="addTimeOffBtn"/>
+        </GridPane>
+    </center>
+</BorderPane>

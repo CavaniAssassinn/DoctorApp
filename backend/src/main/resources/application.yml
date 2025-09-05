@@ -1,8 +1,25 @@
 server:
   port: 8080
   servlet:
-    context-path: /api/v1   #  all URLs start with /api/v1
+    context-path: /api/v1
+
 spring:
-  jackson:
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    url: jdbc:h2:mem:doctorapp;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update         # Hibernate create/update tables
+    open-in-view: false
+    properties:
+      hibernate.format_sql: true
+    defer-datasource-initialization: true  # <-- run data.sql AFTER Hibernate
+  sql:
+    init:
+      mode: always             # <-- always run schema.sql/data.sql for embedded DBs
+  h2:
+    console:
+      enabled: true
+      path: /h2-console        # http://localhost:8080/api/v1/h2-console

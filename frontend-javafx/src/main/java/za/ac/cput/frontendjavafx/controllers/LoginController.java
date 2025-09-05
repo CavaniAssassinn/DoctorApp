@@ -25,7 +25,7 @@ public class LoginController {
         new Thread(() -> {
             try {
                 api.login(emailField.getText(), passwordField.getText());
-                javafx.application.Platform.runLater(this::openSearch);
+                javafx.application.Platform.runLater(this::openDashboard);
             } catch (Exception ex){
                 javafx.application.Platform.runLater(() -> {
                     statusLabel.setText("Login failed: " + ex.getMessage());
@@ -35,15 +35,26 @@ public class LoginController {
         }).start();
     }
 
-    private void openSearch(){
+    private void openDashboard(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/za/ac/cput/frontendjavafx/search.fxml"));
+            String fxml = api.isDoctor()
+                    ? "/za/ac/cput/frontendjavafx/doctor-dashboard.fxml"
+                    : "/za/ac/cput/frontendjavafx/patient-dashboard.fxml";
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
-            SearchController controller = loader.getController();
-            controller.setApi(api);
+
+            if (api.isDoctor()) {
+                DoctorDashboardController c = loader.getController();
+                c.setApi(api);
+            } else {
+                PatientDashboardController c = loader.getController();
+                c.setApi(api);
+            }
+
             Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setTitle("Doctor Booking — Search & Book");
-            stage.setScene(new Scene(root, 1024, 680));
+            stage.setTitle(api.isDoctor() ? "Doctor Dashboard" : "Patient Dashboard");
+            stage.setScene(new Scene(root, 1060, 720));
         } catch (Exception ex){
             statusLabel.setText("UI error: " + ex.getMessage());
         }

@@ -5,36 +5,46 @@ Date: March 2025*/
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Appointment;
-import za.ac.cput.util.Helper;
+import za.ac.cput.domain.Doctor;
+import za.ac.cput.domain.Patient;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class AppointmentFactory {
 
+ /**
+  * Build a JPA Appointment from domain objects + date/time.
+  * Validates nulls and ensures the slot is not in the past.
+  */
+ public static Appointment create(Doctor doctor,
+                                  Patient patient,
+                                  LocalDate date,
+                                  LocalTime time,
+                                  String statusOpt /* may be null */) {
 
- public static Appointment createAppointment(int appointmentID, LocalDate date, LocalTime time, String status, int patientID, int doctorID) {
+  // Basic validation (replace with your Helper.* if you prefer)
+  Objects.requireNonNull(doctor,  "Doctor cannot be null");
+  Objects.requireNonNull(patient, "Patient cannot be null");
+  Objects.requireNonNull(date,    "Appointment date cannot be null");
+  Objects.requireNonNull(time,    "Appointment time cannot be null");
 
-
-  // Validate inputs
-  Helper.validateNotNull(date, "Appointment date cannot be null");
-  Helper.validateNotNull(time, "Appointment time cannot be null");
-  Helper.validateNotNullOrEmpty(status, "Appointment status cannot be null or empty");
-  Helper.validatePositiveNumber(patientID, "Patient ID must be a positive number");
-  Helper.validatePositiveNumber(doctorID, "Doctor ID must be a positive number");
-
-  // Ensure the appointment date is in the future
-  if (date.isBefore(LocalDate.now())) {
+  LocalDateTime start = LocalDateTime.of(date, time);
+  if (start.isBefore(LocalDateTime.now())) {
    throw new IllegalArgumentException("Appointment must be in the future.");
   }
 
-  return new Appointment.AppointmentBuilder()
-         .setAppointmentID( appointmentID)
-         .setDate(date)
-         .setTime(time)
-         .setStatus(status)
-         .setPatientID(patientID)
-         .setDoctorID(doctorID)
-         .build();
+  // Create the entity
+  Appointment a = new Appointment(doctor, patient, start);
+
+  // Optional status override
+  if (statusOpt != null && !statusOpt.isBlank()) {
+   Appointment.Status s = Appointment.Status.valueOf(statusOpt.toUpperCase());
+   a.setStatus(s);
   }
+
+  return a;
+ }
 }

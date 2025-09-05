@@ -1,111 +1,31 @@
-/* Appointment.java
-Appointment model
-Author : Nathan Antha(219474893)
-Date: March 2025*/
 package za.ac.cput.domain;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
+@Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"doctor_id","startTime"}))
 public class Appointment {
-    int appointmentID;
-    LocalDate date;
-    LocalTime time;
-    String status;
-    int patientID;
-    int doctorID;
+    public enum Status { PENDING, CONFIRMED, CANCELLED }
 
-    public Appointment(AppointmentBuilder builder) {
-        this.appointmentID = builder.appointmentID;
-        this.date = builder.date;
-        this.time = builder.time;
-        this.status = builder.status;
-        this.patientID = builder.patientID;
-        this.doctorID = builder.doctorID;
-    }
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    public int getAppointmentID() {
-        return appointmentID;
-    }
+    @ManyToOne(optional=false) private Doctor doctor;
+    @ManyToOne(optional=false) private Patient patient;
 
-    public LocalDate getDate() {
-        return date;
-    }
+    @Column(nullable=false) private LocalDateTime startTime;
 
-    public LocalTime getTime() {
-        return time;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable=false) private Status status = Status.PENDING;
 
-    public String getStatus() {
-        return status;
-    }
-
-    /*public int getPatientID() {
-        return patientID;
-    }*/
-
-    public int getDoctorID() {
-        return doctorID;
-    }
-
-    public static class AppointmentBuilder {
-        int appointmentID;
-        LocalDate date;
-        LocalTime time;
-        String status;
-        int patientID;
-        int doctorID;
-
-        public AppointmentBuilder setAppointmentID(int appointmentID) {
-            this.appointmentID = appointmentID;
-            return this;
-
-        }
-
-        public AppointmentBuilder setDate(LocalDate date) {
-            this.date = date;
-            return this;
-
-        }
-
-        public AppointmentBuilder setTime(LocalTime time) {
-            this.time = time;
-            return this;
-
-        }
-
-        public AppointmentBuilder setPatientID(int patientID) {
-            this.patientID = patientID;
-            return this;
-
-        }
-
-        public AppointmentBuilder setStatus(String status) {
-            this.status = status;
-            return this;
-
-        }
-
-        public AppointmentBuilder setDoctorID(int doctorID) {
-            this.doctorID = doctorID;
-            return this;
-
-        }
-        public Appointment build() {
-            return new Appointment(this);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "appointmentID=" + appointmentID +
-                ", date=" + date +
-                ", time=" + time +
-                ", status='" + status + '\'' +
-                ", patientID=" + patientID +
-                ", doctorID=" + doctorID +
-                '}';
-    }
+    protected Appointment(){}
+    public Appointment(Doctor d, Patient p, LocalDateTime start){ this.doctor=d; this.patient=p; this.startTime=start; }
+    public UUID getId(){ return id; }
+    public Doctor getDoctor(){ return doctor; }
+    public Patient getPatient(){ return patient; }
+    public LocalDateTime getStartTime(){ return startTime; }
+    public Status getStatus(){ return status; }
+    public void setStatus(Status s){ this.status=s; }
 }
-

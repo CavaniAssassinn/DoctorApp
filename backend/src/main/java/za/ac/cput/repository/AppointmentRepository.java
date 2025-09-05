@@ -1,63 +1,22 @@
-/* AppointmentRepository.java
-Appointment model
-Author : Nathan Antha(219474893)
-Date: March 2025
- */
 package za.ac.cput.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.domain.Appointment;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
-public class AppointmentRepository implements IAppointmentRepository {
+public interface AppointmentRepository extends JpaRepository<Appointment, UUID> {
 
-    private static AppointmentRepository repository = null;
-    private final Set<Appointment> appointmentSet;
+    /** Check if a doctor already has an appointment at a specific start time (prevents double booking). */
+    boolean existsByDoctor_IdAndStartTime(UUID doctorId, LocalDateTime startTime);
 
-    private AppointmentRepository() {
-        this.appointmentSet = new HashSet<>();
-    }
+    /** All appointments for a patient, ordered soonest first. */
+    List<Appointment> findByPatient_IdOrderByStartTimeAsc(UUID patientId);
 
-    public static AppointmentRepository getInstance() {
-        if (repository == null) {
-            repository = new AppointmentRepository();
-        }
-        return repository;
-    }
-
-    @Override
-    public Appointment create(Appointment appointment) {
-        this.appointmentSet.add(appointment);
-        return appointment;
-    }
-
-    @Override
-    public Optional<Appointment> read(Integer appointmentID) {
-        return appointmentSet.stream()
-                .filter(ap -> ap.getAppointmentID() == appointmentID)
-                .findFirst();
-    }
-
-    @Override
-    public Appointment update(Appointment appointment) {
-        Optional<Appointment> existingAppointment = read(appointment.getAppointmentID());
-        if (existingAppointment.isPresent()) {
-            this.appointmentSet.remove(existingAppointment.get());
-            this.appointmentSet.add(appointment);
-            return appointment;
-        }
-        return null;
-    }
-
-    @Override
-    public void delete(Integer appointmentID) {
-        this.appointmentSet.removeIf(ap -> ap.getAppointmentID() == appointmentID);
-    }
-
-    @Override
-    public Set<Appointment> getAll() {
-        return appointmentSet;
-    }
+    /** Appointments for a doctor within a window (useful for day/week views). */
+    List<Appointment> findByDoctor_IdAndStartTimeBetweenOrderByStartTimeAsc(
+            UUID doctorId, LocalDateTime from, LocalDateTime to
+    );
 }

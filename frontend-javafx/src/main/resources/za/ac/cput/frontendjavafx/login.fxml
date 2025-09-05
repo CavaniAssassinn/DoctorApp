@@ -7,7 +7,7 @@
     <center>
         <VBox spacing="12.0" alignment="CENTER">
             <padding><Insets top="40" bottom="40" left="40" right="40"/></padding>
-            <Label text="Doctor Booking — Patient Login" style="-fx-font-size: 20;"/>
+            <Label text="Doctor Booking — Login" style="-fx-font-size: 20;"/>
             <TextField fx:id="emailField" promptText="Email"/>
             <PasswordField fx:id="passwordField" promptText="Password"/>
             <Button fx:id="loginBtn" text="Login" onAction="#onLogin" maxWidth="200"/>

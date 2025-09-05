@@ -1,82 +1,25 @@
-/* PatientFactory.java
-Patient model class
-Author : Bruneez Apollis(222127600)
-Date: March 2025
- */
 package za.ac.cput.domain;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import java.util.UUID;
 
-
+@Entity
 public class Patient {
-    private final int patientID;
-    private final String patientName;
-    private final String patientSurname;
-    private final LocalDate dateOfBirth;
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @Column(nullable=false) private String fullName;
+    @Column(nullable=false, unique=true) private String email;
+    private String phone;
 
-
-    public int getPatientID() {
-        return patientID;
+    protected Patient() {}
+    public Patient(String fullName, String email, String phone){
+        this.fullName = fullName; this.email = email; this.phone = phone;
     }
-    public String getPatientName(){return patientName;}
-    public String getPatientSurname(){return patientSurname;}
-    public LocalDate getDateOfBirth(){return dateOfBirth;}
-
-
-    private Patient(Builder builder) {
-        this.patientID = builder.patientID;
-        this.patientName = builder.patientName;
-        this.patientSurname = builder.patientSurname;
-        this.dateOfBirth = builder.dateOfBirth;
-
-    }
-
-    // Inner Builder class
-    public static class Builder {
-        private int patientID;
-        private String patientName;
-        private String patientSurname;
-        private LocalDate dateOfBirth;
-
-
-        public Builder setPatientID(int patientID) {
-            this.patientID = patientID;
-            return this;
-        }
-
-        public Builder setPatientName(String patientName) {
-            this.patientName = patientName;
-            return this;
-        }
-
-        public Builder setPatientSurname(String patientSurname) {
-            this.patientSurname = patientSurname;
-            return this;
-        }
-
-        public Builder setDateOfBirth(LocalDate dateOfBirth) {
-            this.dateOfBirth = dateOfBirth;
-            return this;
-        }
-
-
-
-        public Patient build() {
-            return new Patient(this);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "PatientID=" + patientID +
-                ", name='" + patientName + '\'' +
-                ", surname='" + patientSurname + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                '}';
-    }
-
-
+    public UUID getId(){ return id; }
+    public String getFullName(){ return fullName; }
+    public String getEmail(){ return email; }
+    public String getPhone(){ return phone; }
+    public void setFullName(String v){ this.fullName=v; }
+    public void setEmail(String v){ this.email=v; }
+    public void setPhone(String v){ this.phone=v; }
 }
-
-

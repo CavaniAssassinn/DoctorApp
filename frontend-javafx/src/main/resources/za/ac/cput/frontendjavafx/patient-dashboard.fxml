@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="za.ac.cput.frontendjavafx.controllers.SearchController">
+            fx:controller="za.ac.cput.frontendjavafx.controllers.PatientDashboardController">
     <top>
-        <HBox spacing="8.0">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <HBox spacing="8.0" padding="10.0">
             <TextField fx:id="queryField" promptText="Search (name)"/>
             <TextField fx:id="cityField" promptText="City"/>
             <TextField fx:id="specialityField" promptText="Speciality"/>
@@ -16,13 +12,9 @@
             <Label fx:id="statusLabel" textFill="grey"/>
         </HBox>
     </top>
-
     <center>
         <SplitPane dividerPositions="0.5">
-            <VBox spacing="8.0">
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10"/>
-                </padding>
+            <VBox spacing="8.0" padding="10.0">
                 <Label text="Doctors"/>
                 <ListView fx:id="doctorsList" prefHeight="400.0"/>
                 <HBox spacing="8.0">
@@ -30,11 +22,7 @@
                     <Button text="Load Slots" onAction="#onLoadSlots"/>
                 </HBox>
             </VBox>
-
-            <VBox spacing="8.0">
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10"/>
-                </padding>
+            <VBox spacing="8.0" padding="10.0">
                 <Label text="Available Slots"/>
                 <ListView fx:id="slotsList" prefHeight="300.0"/>
                 <Label text="Reason"/>
