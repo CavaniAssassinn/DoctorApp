@@ -1,0 +1,68 @@
+/* Root background */
+.root {
+    -fx-background-color: #f0f3bd; /* Cream */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar-button {
+    -fx-background-color: #00a896; /* Persian Green */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #028090; /* Teal */
+}
+
+/* Profile label */
+.profile-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #05668d; /* Lapis Lazuli */
+}
+
+/* Top bar */
+.top-bar {
+    -fx-background-color: #05668d; /* Lapis Lazuli */
+    -fx-padding: 8;
+}
+
+.top-bar .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Cards */
+.card {
+    -fx-background-color: white;
+    -fx-border-color: #02c39a; /* Mint */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0, 0, 3);
+    -fx-padding: 12;
+}
+
+/* Section titles */
+.section-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #028090; /* Teal */
+}
+
+/* Action buttons (bottom row) */
+.action-button {
+    -fx-background-color: #02c39a; /* Mint */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+}
+
+.action-button:hover {
+    -fx-background-color: #028090;
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="617.0" prefWidth="1148.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="za.ac.cput.demo.DoctorsController">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox prefHeight="538.0" prefWidth="262.0" spacing="15" style="-fx-background-color: #f7f7f7; -fx-padding: 20;">
+            <ImageView fitHeight="259.0" fitWidth="322.0" VBox.vgrow="NEVER">
+                <image>
+                    <!--  <Image url="@doctor.png" /> Place doctor image in resources -->
+                </image>
+            </ImageView>
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Dr. Michael Mattioli" />
+
+            <Button maxWidth="200" text="Dashboard" />
+            <Button maxWidth="200" text="Appointment List" />
+            <Button maxWidth="200" text="Manage Team" />
+            <Button maxWidth="200" text="Messages" />
+            <Button maxWidth="200" text="Profile" />
+            <Button maxWidth="200" text="Settings" />
+            <Button maxWidth="200" text="Help" />
+        </VBox>
+    </left>
+
+    <!-- Top Bar -->
+    <top>
+        <HBox spacing="15" style="-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: lightgray; -fx-border-width: 0 0 1 0;">
+            <TextField prefHeight="26.0" prefWidth="719.0" promptText="Search" HBox.hgrow="ALWAYS" />
+            <Button text="🔔" />
+            <Button text="📧" />
+            <Label text="Dr. Michael Mattioli" />
+            <Label style="-fx-text-fill: gray;" text="michaelmatti23@gmail.com" />
+        </HBox>
+    </top>
+
+    <!-- Main Dashboard -->
+    <center>
+        <GridPane hgap="20" prefHeight="574.0" prefWidth="720.0" style="-fx-padding: 20;" vgap="20">
+            <!-- Patients by Department -->
+            <VBox prefHeight="470.0" prefWidth="262.0" style="-fx-background-color: #fff; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, gray, 5,0,0,2);" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Patients by Department" />
+                <Label text="(Chart placeholder)" />
+            </VBox>
+
+            <!-- Latest Appointments -->
+            <VBox prefHeight="476.0" prefWidth="270.0" style="-fx-background-color: #fff; -fx-padding: 15; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Latest Appointments" />
+                <ListView prefHeight="200" />
+            </VBox>
+
+            <!-- Stats -->
+            <VBox prefHeight="530.0" prefWidth="230.0" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <Button maxWidth="222.0" prefHeight="103.0" prefWidth="204.0" text="180 Total Appointments" />
+                <Button maxWidth="222.0" prefHeight="103.0" prefWidth="204.0" text="106 Completed" />
+                <Button maxWidth="222.0" prefHeight="103.0" prefWidth="204.0" text="32 Cancelled" />
+                <Button maxWidth="222.0" prefHeight="103.0" prefWidth="204.0" text="86 Follow-ups" />
+            </VBox>
+
+            <!-- Bottom Widgets -->
+            <HBox spacing="20" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                <Button maxWidth="200.0" text="New Messages" />
+                <Button maxWidth="200" text="Latest Proposals" />
+                <Button maxWidth="200" text="View Saved Items" />
+            </HBox>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </center>
+</BorderPane>
