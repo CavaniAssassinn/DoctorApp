@@ -38,8 +38,8 @@ public class LoginController {
     private void openDashboard(){
         try {
             String fxml = api.isDoctor()
-                    ? "/za/ac/cput/frontendjavafx/doctor-dashboard.fxml"
-                    : "/za/ac/cput/frontendjavafx/patient-dashboard.fxml";
+                    ? "/za/ac/cput/frontendjavafx/doctorDashboard.fxml"
+                    : "/za/ac/cput/frontendjavafx/patientDashboard.fxml";
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
