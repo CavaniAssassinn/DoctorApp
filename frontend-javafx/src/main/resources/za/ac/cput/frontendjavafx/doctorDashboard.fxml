@@ -18,24 +18,26 @@
       <BorderPane prefHeight="72" style="-fx-background-color: white; -fx-border-color: #e6eaf2; -fx-border-width: 0 0 1 0">
          <!-- LEFT: company logo + app name -->
          <left>
-            <HBox alignment="CENTER_LEFT" spacing="10" padding="10">
-               <ImageView fx:id="companyLogo" fitHeight="36" preserveRatio="true">
-                  <image>
-                     <Image url="@/za/ac/cput/frontendjavafx/images/logo.png"/>
-                  </image>
-               </ImageView>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <padding>
+                  <Insets top="10" right="10" bottom="10" left="10"/>
+               </padding>
                <Label text="HealthConnect" style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#028090"/>
             </HBox>
          </left>
 
          <!-- RIGHT: logged-in doctor name + email -->
          <right>
-            <HBox alignment="CENTER_RIGHT" spacing="12" padding="10">
+            <HBox alignment="CENTER_RIGHT" spacing="12">
+               <padding>
+                  <Insets top="10" right="10" bottom="10" left="10"/>
+               </padding>
                <VBox alignment="CENTER_RIGHT" spacing="2">
                   <Label fx:id="headerDocName" text="Dr. Your Name" style="-fx-font-size:14; -fx-font-weight:bold"/>
                   <Label fx:id="headerEmail"   text="you@example.com" style="-fx-text-fill:#6c7a89"/>
                </VBox>
             </HBox>
+
          </right>
       </BorderPane>
    </top>
@@ -49,7 +51,9 @@
          <!-- profile card -->
          <VBox styleClass="card profile-card" spacing="10" alignment="CENTER">
             <ImageView fitHeight="88" fitWidth="88" preserveRatio="true" styleClass="avatar-lg">
-               <image><Image url="@images/avatar-doctor.png"/></image>
+               <image>
+                  <Image url="@images/avatar-doctor.png"/>
+               </image>
             </ImageView>
             <Label fx:id="sideName" styleClass="title-md" text="Dr. Your Name"/>
             <Label fx:id="sideSpec" styleClass="muted" text="Speciality"/>

@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import za.ac.cput.frontendjavafx.api.ApiClient;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,6 +43,8 @@ public class DoctorDashboardController {
     @FXML private TextField timeOffEndField;
     @FXML private TextField timeOffReasonField;
     @FXML private Button addTimeOffBtn;
+
+    private Timeline refresher;
 
     private ApiClient api;
     private final List<ApiClient.AppointmentDto> todays = new ArrayList<>();
@@ -87,6 +92,10 @@ public class DoctorDashboardController {
         }
         if (slotMinutesField != null) slotMinutesField.setText("20");
         if (timeOffDate != null) timeOffDate.setValue(LocalDate.now().plusDays(1));
+
+        refresher = new Timeline(new KeyFrame(Duration.seconds(30), e -> onRefresh()));
+        refresher.setCycleCount(Timeline.INDEFINITE);
+        refresher.play();
     }
 
     /* =====================  Schedule  ===================== */
@@ -257,11 +266,14 @@ public class DoctorDashboardController {
             }
         }).start();
     }
+    private void stopRefresher() {
+        if (refresher != null) refresher.stop();
+    }
 
     @FXML
     private void onLogout() {
-        Stage stage = (Stage) (docName.getScene().getWindow());
-        stage.close();
+        stopRefresher();
+        ((Stage) headerDocName.getScene().getWindow()).close();
     }
 
     /* ---------- helpers ---------- */

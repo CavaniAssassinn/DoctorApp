@@ -91,7 +91,9 @@ public class LoginController {
         } catch (Exception ex){
             System.err.println("Failed to load dashboard FXML");
             ex.printStackTrace();
-
+            System.err.println("Failed to load dashboard FXML");
+            ex.printStackTrace();   // ← this reveals the exact resource that failed
+            statusLabel.setText("UI error: " + ex.getMessage());
             statusLabel.setText("UI error: " + ex.getMessage());
         }
     }

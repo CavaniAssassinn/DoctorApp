@@ -1,5 +1,6 @@
 package za.ac.cput.frontendjavafx.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -78,22 +79,28 @@ public class PatientDashboardController {
     @FXML
     public void onBook() {
         String slot = slotsList.getSelectionModel().getSelectedItem();
-        if (slot == null) { setStatus("Pick a slot first"); return; }
+        if (slot == null) { toast("Pick a slot first"); return; }
 
         String doctorId = extractDoctorId();
-        if (doctorId == null) { setStatus("Select a doctor"); return; }
+        String reason   = Optional.ofNullable(reasonArea.getText()).orElse("Consultation").trim();
 
-        String reason = Optional.ofNullable(reasonArea.getText()).orElse("Consultation").trim();
-
-        setStatus("Booking...");
+        // Use the overload that uses the *current patient* from session if you have it,
+        // otherwise pass api.getPatientId()
         new Thread(() -> {
             try {
-                var res = api.book(doctorId, slot, reason); // 3-arg overload (patient from session)
-                javafx.application.Platform.runLater(() -> setStatus("Booked: " + res.id));
+                api.book(doctorId, slot, reason);           // or api.book(doctorId, api.getPatientId(), slot, reason)
+                Platform.runLater(() -> {
+                    toast("Booked ✔");
+                    slotsList.getItems().remove(slot);      // optional visual feedback
+                });
             } catch (Exception ex) {
-                javafx.application.Platform.runLater(() -> setStatus("Booking failed: " + ex.getMessage()));
+                Platform.runLater(() -> toast("Booking failed: " + ex.getMessage()));
             }
         }).start();
+    }
+
+    private void toast(String msg) {
+        if (statusLabel != null) statusLabel.setText(msg);
     }
 
     private String extractDoctorId() {

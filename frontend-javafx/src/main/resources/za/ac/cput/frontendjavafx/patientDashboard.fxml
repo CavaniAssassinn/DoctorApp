@@ -19,7 +19,7 @@
                   -fx-border-color: grey;">
          <left>
             <ImageView fitHeight="125" fitWidth="139" pickOnBounds="true" preserveRatio="true">
-               <image><Image url="@../images/logo.png"/></image>
+               <image><Image url="@images/logo.png"/></image>
             </ImageView>
          </left>
          <right>
@@ -35,7 +35,7 @@
       <Pane prefWidth="220" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-width: .5;">
          <children>
             <ImageView fitHeight="140" fitWidth="180" layoutX="20" layoutY="37" pickOnBounds="true" preserveRatio="true">
-               <image><Image url="@../images/1e4e4962c45b4c0192ccdbbe737916e0.jpg"/></image>
+               <image><Image url="@images/1e4e4962c45b4c0192ccdbbe737916e0.jpg"/></image>
             </ImageView>
             <Label fx:id="patName" layoutX="28" layoutY="210" text="Name">
                <font><Font size="24"/></font>

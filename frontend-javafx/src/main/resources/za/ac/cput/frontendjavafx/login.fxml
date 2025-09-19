@@ -16,7 +16,7 @@
             <padding><Insets bottom="40" left="40" right="40" top="40" /></padding>
          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@../images/logo.png" />
+               <Image url="@images/logo.png" />
             </image>
          </ImageView>
             <TextField fx:id="emailField" promptText="Email" />
