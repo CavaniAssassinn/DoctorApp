@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c1500e20-e53d-4fdc-9d9e-b217d94d452b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/config/DemoData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/config/DemoData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/DoctorDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/PatientDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/java/za/ac/cput/frontendjavafx/controllers/PatientDashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/doctorDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/doctorDashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/patientDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/patientDashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/images/1e4e4962c45b4c0192ccdbbe737916e0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/images/1e4e4962c45b4c0192ccdbbe737916e0.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/images/avatar-doctor.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/images/avatar-doctor.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-javafx/src/main/resources/za/ac/cput/frontendjavafx/images/logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +88,7 @@
       <updated>1757522214606</updated>
       <workItem from="1757522215815" duration="24000" />
       <workItem from="1757524024308" duration="21666000" />
-      <workItem from="1758282344160" duration="1332000" />
+      <workItem from="1758282344160" duration="3065000" />
     </task>
     <servers />
   </component>
