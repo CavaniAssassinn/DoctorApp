@@ -96,6 +96,16 @@ public class AppointmentController {
         a.setStatus(s);
         appts.save(a);
     }
+    // --- By doctor (used by JavaFX to show today's/any day's bookings) ---
+    @GetMapping("/doctor/{doctorId}")
+    public List<AppointmentResp> byDoctor(@PathVariable UUID doctorId) {
+        return appts.findByDoctor_Id(doctorId)
+                .stream()
+                .sorted(Comparator.comparing(Appointment::getStartTime))
+                .map(AppointmentResp::of)
+                .toList();
+    }
+
 
     // --- Helpers & error mappers ---
     private static UUID parseUuid(String s, String field){

@@ -6,10 +6,13 @@ import org.springframework.data.repository.query.Param;
 import za.ac.cput.domain.Doctor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
 
+    boolean existsByFullNameIgnoreCase(String fullName);
+    Optional<Doctor> findByFullNameIgnoreCase(String fullName);
     @Query("""
       select d from Doctor d
       where (:q is null or lower(d.fullName) like lower(concat('%', :q, '%')))

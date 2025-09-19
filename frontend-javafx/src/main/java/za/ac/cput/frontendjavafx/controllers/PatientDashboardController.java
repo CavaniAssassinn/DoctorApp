@@ -1,7 +1,6 @@
 package za.ac.cput.frontendjavafx.controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import za.ac.cput.frontendjavafx.api.ApiClient;
@@ -10,91 +9,102 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class PatientDashboardController {
-    @FXML private TextField queryField;
-    @FXML private TextField cityField;
-    @FXML private TextField specialityField;
-    @FXML private ListView<String> doctorsList;
-    @FXML private DatePicker datePicker;
-    @FXML private ListView<String> slotsList;
-    @FXML private TextArea reasonArea;
-    @FXML private Label statusLabel;
 
     private ApiClient api;
+
+    // --- UI nodes used by your booking flow (ensure they exist in FXML) ---
+    @FXML private Label statusLabel;                 // <-- add this to FXML too
+    @FXML private ListView<String> doctorsList;      // list of doctors (displayed)
+    @FXML private ListView<String> slotsList;        // list of time slots (displayed)
+    @FXML private TextArea reasonArea;               // booking reason
+    @FXML private DatePicker datePicker;             // date picker
+
+    // keep the raw doctor objects so we can pull the id later
     private List<Map<String,Object>> doctors = new ArrayList<>();
 
-    public void setApi(ApiClient api){ this.api = api; }
+    public void setApi(ApiClient api) { this.api = api; }
+
+    /* ------------------- actions (examples) ------------------- */
+    @FXML
+    public void onRefreshDoctors() { onSearch(); }
 
     @FXML
-    public void initialize(){
-        datePicker.setValue(LocalDate.now().plusDays(1));
-        doctorsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        slotsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-    }
-
-    @FXML
-    public void onSearch(){
-        statusLabel.setText("Searching...");
+    public void onSearch() {
+        setStatus("Searching doctors...");
         new Thread(() -> {
             try {
-                List<Map<String,Object>> result = api.searchDoctors(queryField.getText(), cityField.getText(), specialityField.getText());
-                doctors = result;
-                ObservableList<String> items = FXCollections.observableArrayList();
-                for (Map<String,Object> d : doctors) {
-                    String name = Objects.toString(d.getOrDefault("fullName", d.getOrDefault("name","Doctor")), "");
-                    String spec = Objects.toString(d.get("speciality"), "");
-                    @SuppressWarnings("unchecked")
-                    Map<String,Object> clinic = (Map<String,Object>) d.getOrDefault("clinic", java.util.Collections.emptyMap());
-                    String city = Objects.toString(clinic.get("city"), "");
+                // Plug in your real filters if you have search fields
+                doctors = api.searchDoctors("", "", "");
+                var items = FXCollections.<String>observableArrayList();
+                for (var d : doctors) {
+                    String name = Objects.toString(d.getOrDefault("fullName", "Doctor"));
+                    String spec = Objects.toString(d.getOrDefault("speciality", ""));
+                    String city = Objects.toString(d.getOrDefault("clinicCity", ""));
                     items.add(name + " — " + spec + " (" + city + ") :: " + d.get("id"));
                 }
                 javafx.application.Platform.runLater(() -> {
                     doctorsList.setItems(items);
                     slotsList.getItems().clear();
-                    statusLabel.setText("Found " + doctors.size());
+                    setStatus("Found " + doctors.size());
                 });
-            } catch (Exception ex){
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Search error: " + ex.getMessage()));
+            } catch (Exception ex) {
+                javafx.application.Platform.runLater(() -> setStatus("Search error: " + ex.getMessage()));
             }
         }).start();
     }
 
     @FXML
-    public void onLoadSlots(){
-        int idx = doctorsList.getSelectionModel().getSelectedIndex();
-        if (idx < 0) { statusLabel.setText("Select a doctor"); return; }
-        String doctorId = Objects.toString(doctors.get(idx).get("id"), null);
-        LocalDate date = datePicker.getValue();
+    public void onLoadSlots() {
+        String doctorId = extractDoctorId();
+        if (doctorId == null) { setStatus("Select a doctor"); return; }
 
-        statusLabel.setText("Loading slots…");
+        LocalDate date = (datePicker != null && datePicker.getValue() != null)
+                ? datePicker.getValue() : LocalDate.now().plusDays(1);
+
+        setStatus("Loading slots...");
         new Thread(() -> {
             try {
-                List<String> slots = api.getSlots(doctorId, date);
+                var slots = api.getSlots(doctorId, date);
                 javafx.application.Platform.runLater(() -> {
                     slotsList.setItems(FXCollections.observableArrayList(slots));
-                    statusLabel.setText(slots.isEmpty() ? "No slots" : "Pick a slot then Book");
+                    setStatus(slots.isEmpty() ? "No slots" : "Pick a slot then Book");
                 });
-            } catch (Exception ex){
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Slots error: " + ex.getMessage()));
+            } catch (Exception ex) {
+                javafx.application.Platform.runLater(() -> setStatus("Slots error: " + ex.getMessage()));
             }
         }).start();
     }
 
     @FXML
-    public void onBook(){
+    public void onBook() {
         String slot = slotsList.getSelectionModel().getSelectedItem();
-        if (slot == null) { statusLabel.setText("Pick a slot first"); return; }
-        String reason = Optional.ofNullable(reasonArea.getText()).orElse("Consultation").trim();
-        String patientId = api.userId().orElseThrow(() -> new RuntimeException("No user id"));
-        String doctorId = Objects.toString(doctors.get(doctorsList.getSelectionModel().getSelectedIndex()).get("id"), null);
+        if (slot == null) { setStatus("Pick a slot first"); return; }
 
-        statusLabel.setText("Booking…");
+        String doctorId = extractDoctorId();
+        if (doctorId == null) { setStatus("Select a doctor"); return; }
+
+        String reason = Optional.ofNullable(reasonArea.getText()).orElse("Consultation").trim();
+
+        setStatus("Booking...");
         new Thread(() -> {
             try {
-                Map<String,Object> res = api.book(doctorId, patientId, slot, reason);
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Booked: " + res.get("id")));
-            } catch (Exception ex){
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Book failed: " + ex.getMessage()));
+                var res = api.book(doctorId, slot, reason); // 3-arg overload (patient from session)
+                javafx.application.Platform.runLater(() -> setStatus("Booked: " + res.id));
+            } catch (Exception ex) {
+                javafx.application.Platform.runLater(() -> setStatus("Booking failed: " + ex.getMessage()));
             }
         }).start();
+    }
+
+    private String extractDoctorId() {
+        int idx = doctorsList.getSelectionModel().getSelectedIndex();
+        if (idx < 0 || idx >= doctors.size()) return null;
+        Object id = doctors.get(idx).get("id");
+        return id == null ? null : id.toString();
+    }
+
+    private void setStatus(String msg) {
+        if (statusLabel != null) statusLabel.setText(msg);
+        System.out.println(msg);
     }
 }

@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-    public static String BASE_URL = "http://localhost:8080/api/v1";
+    public static final String BASE_URL = "http://localhost:8080/api/v1";
 
     @Override
     public void start(Stage stage) throws Exception {

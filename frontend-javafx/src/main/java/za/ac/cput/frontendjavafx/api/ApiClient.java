@@ -24,10 +24,14 @@ public class ApiClient {
     private String patientId;
     private String doctorId;
     private String fullName;
+    public String email;
+    // in ApiClient
+    public Optional<String> getEmail() { return Optional.ofNullable(email); }
 
     public ApiClient(String baseUrl) {
         this.base = baseUrl;
     }
+
 
     /** Login with an identifier:
      *  - Patient: pass their email (e.g. john@example.com)
@@ -131,30 +135,78 @@ public class ApiClient {
 
     // in ApiClient.java
     public void login(String identifier, String password) throws Exception {
-        Map<String,String> body = new java.util.HashMap<>();
-        body.put("identifier", identifier);
-        body.put("password", password); // backend ignores for now
+        Map<String,String> body = new HashMap<>();
+        body.put("email", identifier);      // primary
+        body.put("identifier", identifier); // fallback if server used it
+        body.put("password", password);
 
         String json = mapper.writeValueAsString(body);
-
-        HttpRequest req = HttpRequest.newBuilder()
+        var req = HttpRequest.newBuilder()
                 .uri(URI.create(base + "/auth/login"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
                 .build();
 
-        HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        var res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
         if (res.statusCode() / 100 != 2) {
             throw new RuntimeException("Login failed: " + res.statusCode() + " " + res.body());
         }
-
         LoginResp lr = mapper.readValue(res.body(), LoginResp.class);
         this.doctor    = "DOCTOR".equalsIgnoreCase(lr.role);
         this.patientId = lr.patientId;
         this.doctorId  = lr.doctorId;
         this.fullName  = lr.fullName;
+        this.email     = lr.email;                 // <— save email if backend returns it
+
     }
 
+
+    // === Register (Patient) ===
+    // ApiClient.java
+    public void registerPatient(String fullName, String email, String password) throws Exception {
+        Map<String, String> body = new HashMap<>();
+        body.put("fullName", fullName);       // <- EXACT key the backend expects
+        body.put("email", email);
+        body.put("password", password);
+        body.put("role", "PATIENT");
+        post("/auth/register", body, new com.fasterxml.jackson.core.type.TypeReference<Map<String,Object>>(){});
+    }
+    public Map<String,Object> register(String fullName, String email, String password, String role) throws Exception {
+        Map<String,String> body = new java.util.HashMap<>();
+        body.put("fullName", fullName);
+        body.put("email",    email);
+        body.put("password", password);
+        if (role != null && !role.isBlank()) body.put("role", role); // "PATIENT" or "DOCTOR"
+        return post("/auth/register", body, new TypeReference<Map<String,Object>>() {});
+    }
+
+    // === Register (Doctor) — requires existing doctorId (UUID) ===
+    public Map<String,Object> registerDoctor(String email, String password, String doctorId) throws Exception {
+        Map<String,String> body = new HashMap<>();
+        body.put("email", email);
+        body.put("password", password);
+        body.put("role", "DOCTOR");
+        body.put("doctorId", doctorId);
+
+        return post("/auth/register", body, new com.fasterxml.jackson.core.type.TypeReference<Map<String,Object>>(){});
+    }
+
+    public void updateAppointmentStatus(String apptId, String status) throws Exception {
+        Map<String, String> body = Map.of("status", status);
+        String json = mapper.writeValueAsString(body);
+
+        HttpRequest req = HttpRequest.newBuilder()
+                .uri(URI.create(base + "/appointments/" + apptId + "/status"))
+                .header("Content-Type", "application/json")
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
+                .build();
+
+        HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        // Your backend returns 200 or 204 (void). Treat 2xx as success.
+        if (res.statusCode() / 100 != 2) {
+            throw new RuntimeException("PATCH /appointments/" + apptId + "/status -> " + res.statusCode() + ": " + res.body());
+        }
+    }
 
     // ----- Dashboard helpers -----
 
@@ -162,6 +214,16 @@ public class ApiClient {
         return get("/doctors", DoctorDto[].class);
     }
 
+    public java.util.Optional<DoctorDto> getMyDoctor() throws Exception {
+        if (!isDoctor() || doctorId == null) return java.util.Optional.empty();
+        try {
+            return java.util.Optional.of(get("/doctors/" + doctorId, DoctorDto.class));
+        } catch (Exception e) {
+            // fallback if /doctors/{id} doesn’t exist: search list
+            for (DoctorDto d : getDoctors()) if (doctorId.equals(d.id)) return java.util.Optional.of(d);
+            return java.util.Optional.empty();
+        }
+    }
     public AppointmentDto[] getMyAppointments() throws Exception {
         requirePatient();
         return get("/appointments/me?patientId=" + patientId, AppointmentDto[].class);
@@ -231,6 +293,8 @@ public class ApiClient {
         return mapper.readValue(res.body(), type);
     }
 
+
+
     private void requirePatient() {
         if (patientId == null) throw new IllegalStateException("Not logged in as patient");
     }
@@ -253,6 +317,7 @@ public class ApiClient {
         public String patientId;  // when PATIENT
         public String doctorId;   // when DOCTOR
         public String fullName;   // optional
+        public String email;
     }
 
     public static class DoctorDto {

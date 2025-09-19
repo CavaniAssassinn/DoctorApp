@@ -1,0 +1,81 @@
+.root {
+    -fx-font-family: "Segoe UI", "Inter", system-ui;
+    -color-bg: #f5f7fb;
+    -color-card: white;
+    -color-accent: #0bb7c9; /* teal */
+    -color-muted: #6b7280;
+    -color-border: #e6e8ef;
+}
+
+.header {
+    -fx-background-color: -color-card;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+}
+.search {
+    -fx-background-color: #f0f3f8;
+    -fx-background-radius: 12;
+    -fx-padding: 8 14 8 14;
+    -fx-text-fill: #111827;
+    -fx-border-color: transparent;
+}
+.icon { -fx-font-size: 18px; }
+.hdr-name { -fx-font-weight: 600; }
+.hdr-email { -fx-text-fill: -color-muted; -fx-font-size: 11px; }
+
+.sidebar {
+    -fx-background-color: -color-card;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 1 0 0;
+    -fx-spacing: 16;
+}
+.profile-card { -fx-padding: 16; }
+.avatar { -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.1, 0, 2); -fx-clip: null; }
+.avatar-lg { -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.1, 0, 2); }
+
+.title-md { -fx-font-size: 15px; -fx-font-weight: 600; }
+.muted { -fx-text-fill: -color-muted; }
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #111827;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12 10 12;
+    -fx-background-radius: 10;
+}
+.nav-btn:hover { -fx-background-color: #eef7f8; }
+.nav-btn.active { -fx-background-color: #e9fbff; -fx-text-fill: -color-accent; }
+.nav-btn.danger { -fx-text-fill: #b91c1c; }
+
+.main { -fx-background-color: -color-bg; }
+
+.card {
+    -fx-background-color: -color-card;
+    -fx-background-radius: 16;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(17,24,39,0.06), 14, 0.14, 0, 6);
+}
+.card-title { -fx-font-weight: 600; }
+
+.kpi-card {
+    -fx-background-color: -color-card;
+    -fx-background-radius: 16;
+    -fx-padding: 14;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(17,24,39,0.06), 14, 0.14, 0, 6);
+}
+.kpi-icon   { -fx-font-size: 22px; }
+.kpi-number { -fx-font-size: 22px; -fx-font-weight: 700; }
+.kpi-label  { -fx-text-fill: -color-muted; }
+
+.quick-card { -fx-alignment: TOP_LEFT; }
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 8 6 8 6;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+}
+.list-cell:filled:selected, .list-cell:filled:hover {
+    -fx-background-color: #f7fbfc;
+}

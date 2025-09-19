@@ -9,6 +9,8 @@ module za.ac.cput.frontendjavafx {
 
     opens za.ac.cput.frontendjavafx.controllers to javafx.fxml;
     opens za.ac.cput.frontendjavafx to javafx.fxml;
+    opens za.ac.cput.frontendjavafx.api to com.fasterxml.jackson.databind;
+
 
     exports za.ac.cput.frontendjavafx;
 }
