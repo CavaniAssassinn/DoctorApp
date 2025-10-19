@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            stylesheets="@doctor-dashboard.css"
-            fx:controller="za.ac.cput.frontendjavafx.controllers.DoctorDashboardController">
+<BorderPane stylesheets="@doctor-dashboard.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="za.ac.cput.frontendjavafx.controllers.DoctorDashboardController">
 
    <!-- ===== Header ===== -->
    <top>
-      <BorderPane prefHeight="72"
-                  style="-fx-background-color: white; -fx-border-color: #e6eaf2; -fx-border-width: 0 0 1 0">
+      <BorderPane prefHeight="72" style="-fx-background-color: white; -fx-border-color: #e6eaf2; -fx-border-width: 0 0 1 0">
 
          <!-- left: logo + app name -->
          <left>
             <HBox alignment="CENTER_LEFT" spacing="12">
-               <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+               <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
 
-               <Label text="HealthConnect" style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#028090"/>
+               <Label style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#028090" text="HealthConnect" />
             </HBox>
          </left>
 
          <!-- right: user info + refresh -->
          <right>
             <HBox alignment="CENTER_RIGHT" spacing="12">
-               <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+               <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
 
                <VBox alignment="CENTER_RIGHT" spacing="2">
-                  <Label fx:id="headerDocName" text="Dr. Your Name"
-                         style="-fx-font-size:14; -fx-font-weight:bold"/>
-                  <Label fx:id="headerEmail" text="you@example.com" style="-fx-text-fill:#6c7a89"/>
+                  <Label fx:id="headerDocName" style="-fx-font-size:14; -fx-font-weight:bold" text="Dr. Your Name" />
+                  <Label fx:id="headerEmail" style="-fx-text-fill:#6c7a89" text="you@example.com" />
                </VBox>
 
-               <Button fx:id="refreshBtn" text="Refresh" onAction="#onClickRefresh"/>
+               <Button fx:id="refreshBtn" onAction="#onClickRefresh" text="Refresh" />
             </HBox>
          </right>
       </BorderPane>
@@ -44,108 +38,98 @@
    <!-- ===== Sidebar ===== -->
    <left>
       <VBox styleClass="sidebar">
-         <padding><Insets top="18" left="18" right="18" bottom="18"/></padding>
+         <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
 
          <!-- profile card -->
-         <VBox styleClass="card profile-card" spacing="10" alignment="CENTER">
+         <VBox alignment="CENTER" spacing="10" styleClass="card profile-card">
 <!--            <ImageView fitHeight="88" fitWidth="88" preserveRatio="true" styleClass="avatar-lg">-->
 <!--               <image>-->
 <!--                  <Image url="@/za/ac/cput/frontendjavafx/images/avatar-doctor.png"/>-->
 <!--               </image>-->
 <!--            </ImageView>-->
-            <Label fx:id="sideName" styleClass="title-md" text="Dr. Your Name"/>
-            <Label fx:id="sideSpec" styleClass="muted" text="Speciality"/>
+            <Label fx:id="sideName" styleClass="title-md" text="Dr. Your Name" />
+            <Label fx:id="sideSpec" styleClass="muted" text="Speciality" />
          </VBox>
 
-         <Separator/>
+         <Separator />
 
          <!-- nav (static for now) -->
          <VBox spacing="8">
-            <Button text="Dashboard"         styleClass="nav-btn,active"/>
-            <Button text="Appointment list"  styleClass="nav-btn"/>
-            <Button text="Manage Team"       styleClass="nav-btn"/>
-            <Button text="Messages"          styleClass="nav-btn"/>
-            <Button text="Profile"           styleClass="nav-btn"/>
-            <Button text="Settings"          styleClass="nav-btn"/>
-            <Button text="Help"              styleClass="nav-btn"/>
-            <Button text="Logout"            styleClass="nav-btn danger" onAction="#onLogout"/>
+            <Button styleClass="nav-btn,active" text="Dashboard" />
+            <Button onAction="#onLogout" styleClass="nav-btn danger" text="Logout" />
          </VBox>
       </VBox>
    </left>
 
    <!-- ===== Main content ===== -->
    <center>
-      <GridPane hgap="16" vgap="16" styleClass="main">
-         <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+      <GridPane hgap="16" styleClass="main" vgap="16">
+         <padding><Insets bottom="16" left="16" right="16" top="16" /></padding>
 
          <!-- Today's Schedule -->
-         <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="card" spacing="12">
-            <Label text="Today's Schedule" styleClass="card-title"/>
-            <ListView fx:id="todayList" VBox.vgrow="ALWAYS"/>
+         <VBox spacing="12" styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label styleClass="card-title" text="Today's Schedule" />
+            <ListView fx:id="todayList" VBox.vgrow="ALWAYS" />
          </VBox>
 
          <!-- Latest Appointments -->
-         <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="card" spacing="12">
-            <Label text="Latest Appointments" styleClass="card-title"/>
-            <ListView fx:id="latestList" VBox.vgrow="ALWAYS"/>
+         <VBox spacing="12" styleClass="card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label styleClass="card-title" text="Latest Appointments" />
+            <ListView fx:id="latestList" VBox.vgrow="ALWAYS" />
          </VBox>
 
          <!-- KPI column -->
-         <VBox GridPane.rowIndex="0" GridPane.columnIndex="2" spacing="12">
+         <VBox spacing="12" GridPane.columnIndex="2" GridPane.rowIndex="0">
 
             <HBox styleClass="kpi-card">
-               <Label text="🗓" styleClass="kpi-icon"/>
+               <Label styleClass="kpi-icon" text="🗓" />
                <VBox>
-                  <Label fx:id="kpiTotal" styleClass="kpi-number" text="0"/>
-                  <Label text="Total Appointments" styleClass="kpi-label"/>
+                  <Label fx:id="kpiTotal" styleClass="kpi-number" text="0" />
+                  <Label styleClass="kpi-label" text="Total Appointments" />
                </VBox>
             </HBox>
 
             <HBox styleClass="kpi-card">
-               <Label text="✅" styleClass="kpi-icon"/>
+               <Label styleClass="kpi-icon" text="✅" />
                <VBox>
-                  <Label fx:id="kpiCompleted" styleClass="kpi-number" text="0"/>
-                  <Label text="Completed" styleClass="kpi-label"/>
+                  <Label fx:id="kpiCompleted" styleClass="kpi-number" text="0" />
+                  <Label styleClass="kpi-label" text="Completed" />
                </VBox>
             </HBox>
 
             <HBox styleClass="kpi-card">
-               <Label text="❌" styleClass="kpi-icon"/>
+               <Label styleClass="kpi-icon" text="❌" />
                <VBox>
-                  <Label fx:id="kpiCancelled" styleClass="kpi-number" text="0"/>
-                  <Label text="Cancelled" styleClass="kpi-label"/>
+                  <Label fx:id="kpiCancelled" styleClass="kpi-number" text="0" />
+                  <Label styleClass="kpi-label" text="Cancelled" />
                </VBox>
             </HBox>
 
             <HBox styleClass="kpi-card">
-               <Label text="🔁" styleClass="kpi-icon"/>
+               <Label styleClass="kpi-icon" text="🔁" />
                <VBox>
-                  <Label fx:id="kpiFollowup" styleClass="kpi-number" text="0"/>
-                  <Label text="Follow-up" styleClass="kpi-label"/>
+                  <Label fx:id="kpiFollowup" styleClass="kpi-number" text="0" />
+                  <Label styleClass="kpi-label" text="Follow-up" />
                </VBox>
             </HBox>
          </VBox>
 
          <!-- quick links row -->
-         <HBox GridPane.rowIndex="1" GridPane.columnSpan="3" spacing="16">
-            <VBox styleClass="card quick-card" HBox.hgrow="ALWAYS" spacing="6">
-               <Label text="New Messages" styleClass="card-title"/>
-               <Hyperlink text="Click to view"/>
-            </VBox>
-            <VBox styleClass="card quick-card" HBox.hgrow="ALWAYS" spacing="6">
-               <Label text="Latest Proposals" styleClass="card-title"/>
-               <Hyperlink text="Click to view"/>
-            </VBox>
-            <VBox styleClass="card quick-card" HBox.hgrow="ALWAYS" spacing="6">
-               <Label text="View Saved Items" styleClass="card-title"/>
-               <Hyperlink text="Click to view"/>
-            </VBox>
-         </HBox>
+         <HBox spacing="16" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
       </GridPane>
    </center>
 
    <!-- optional footer status line -->
    <bottom>
-      <Label fx:id="statusLabel" text="" style="-fx-padding: 6 12 6 12; -fx-text-fill: #6c7a89;"/>
+      <Label fx:id="statusLabel" style="-fx-padding: 6 12 6 12; -fx-text-fill: #6c7a89;" text="" />
    </bottom>
 </BorderPane>

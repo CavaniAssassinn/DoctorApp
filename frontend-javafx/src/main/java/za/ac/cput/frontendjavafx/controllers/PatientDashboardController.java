@@ -19,11 +19,29 @@ public class PatientDashboardController {
     @FXML private ListView<String> slotsList;        // list of time slots (displayed)
     @FXML private TextArea reasonArea;               // booking reason
     @FXML private DatePicker datePicker;             // date picker
+    @FXML private Label welcomeLabel;
+    @FXML private Label patName;
 
     // keep the raw doctor objects so we can pull the id later
     private List<Map<String,Object>> doctors = new ArrayList<>();
 
-    public void setApi(ApiClient api) { this.api = api; }
+    public void setApi(ApiClient api) {
+        this.api = api;
+        initialize();
+    }
+
+    private void initialize() {  // Make it a regular method for simplicity
+        if (api != null) {
+            String userName = api.getFullName();
+            if (userName != null && !userName.isEmpty()) {
+                welcomeLabel.setText("Welcome, " + userName);
+                patName.setText(userName);
+            } else {
+                welcomeLabel.setText("Welcome, Guest");
+                patName.setText("Guest");
+            }
+        }
+    }
 
     /* ------------------- actions (examples) ------------------- */
     @FXML

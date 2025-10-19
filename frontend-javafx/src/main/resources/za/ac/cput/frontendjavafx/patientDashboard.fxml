@@ -1,44 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="640.0" prefWidth="1080.0"
-            style="-fx-background-color: #efefef;"
-            xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="za.ac.cput.frontendjavafx.controllers.PatientDashboardController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="640.0" prefWidth="1080.0" style="-fx-background-color: #efefef;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="za.ac.cput.frontendjavafx.controllers.PatientDashboardController">
 
    <top>
-      <BorderPane prefHeight="80.0"
-                  style="-fx-background-color: white;
-                  -fx-border-width: .5;
-                  -fx-border-color: grey;">
+      <BorderPane prefHeight="80.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: #02c39aff;">
          <left>
             <ImageView fitHeight="125" fitWidth="139" pickOnBounds="true" preserveRatio="true">
-               <image><Image url="@images/logo.png"/></image>
+               <image><Image url="@images/logo.png" /></image>
             </ImageView>
          </left>
          <right>
-            <HBox alignment="CENTER" spacing="12">
-               <Label fx:id="headerUserLabel" text="User"/>
-               <Button text="Refresh" onAction="#onSearch"/>
-            </HBox>
+            <HBox alignment="CENTER" spacing="12" />
          </right>
       </BorderPane>
    </top>
 
    <left>
-      <Pane prefWidth="220" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-width: .5;">
+      <Pane prefWidth="220" style="-fx-background-color: white; -fx-border-color: #02c39aff; -fx-border-width: 1;">
          <children>
-            <ImageView fitHeight="140" fitWidth="180" layoutX="20" layoutY="37" pickOnBounds="true" preserveRatio="true">
-               <image><Image url="@images/1e4e4962c45b4c0192ccdbbe737916e0.jpg"/></image>
-            </ImageView>
-            <Label fx:id="patName" layoutX="28" layoutY="210" text="Name">
-               <font><Font size="24"/></font>
+            <Label fx:id="patName" layoutX="23.0" layoutY="33.0" text="Name">
+               <font><Font size="24" /></font>
             </Label>
          </children>
       </Pane>
@@ -47,47 +34,63 @@
    <center>
       <Pane>
          <!-- Welcome -->
-         <Label fx:id="welcomeLabel" layoutX="42" layoutY="33" text="Welcome," >
-            <font><Font size="24"/></font>
+         <Label fx:id="welcomeLabel" layoutX="42" layoutY="33" text="Welcome,">
+            <font><Font size="24" /></font>
          </Label>
 
          <!-- Doctors -->
-         <Pane layoutX="34" layoutY="97" prefHeight="320" prefWidth="230"
-               style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1; -fx-border-color: grey;">
+         <Pane layoutX="34" layoutY="97" prefHeight="320" prefWidth="230" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1; -fx-border-color: #02c39aff;">
             <children>
-               <Label layoutX="60" layoutY="20" text="Doctors Available"/>
-               <ListView fx:id="doctorsList" layoutX="15" layoutY="60" prefHeight="230" prefWidth="200"/>
-               <Button layoutX="15" layoutY="295" text="Load Slots" onAction="#onLoadSlots"/>
+               <Label layoutX="36.0" layoutY="22.0" text="Doctors Available" textFill="#00a896">
+                  <font>
+                     <Font name="System Bold" size="19.0" />
+                  </font></Label>
+               <ListView fx:id="doctorsList" layoutX="15" layoutY="60" prefHeight="230" prefWidth="200" />
+               <Button layoutX="87.0" layoutY="292.0" onAction="#onSearch" style="-fx-background-color: #02c39aff;" text="Refresh" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Button>
             </children>
          </Pane>
 
          <!-- Slots -->
-         <Pane layoutX="316" layoutY="97" prefHeight="320" prefWidth="230"
-               style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1; -fx-border-color: grey;">
+         <Pane layoutX="316" layoutY="97" prefHeight="320" prefWidth="230" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1; -fx-border-color: #02c39aff;">
             <children>
-               <Label layoutX="50" layoutY="20" text="Time Slots Available"/>
-               <ListView fx:id="slotsList" layoutX="15" layoutY="60" prefHeight="230" prefWidth="200"/>
+               <Label layoutX="25.0" layoutY="22.0" text="Time Slots Available" textFill="#00a896">
+                  <font>
+                     <Font name="System Bold" size="19.0" />
+                  </font></Label>
+               <ListView fx:id="slotsList" layoutX="15" layoutY="60" prefHeight="230" prefWidth="200" />
+               <Button layoutX="80.0" layoutY="292.0" onAction="#onLoadSlots" style="-fx-background-color: #02c39aff;" text="Load Slots" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Button>
             </children>
          </Pane>
 
          <!-- Reason -->
-         <Pane layoutX="600" layoutY="97" prefHeight="320" prefWidth="230"
-               style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1; -fx-border-color: grey;">
+         <Pane layoutX="600" layoutY="97" prefHeight="320" prefWidth="230" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1; -fx-border-color: #02c39aff;">
             <children>
-               <Label layoutX="90" layoutY="20" text="Reason"/>
-               <TextArea fx:id="reasonArea" layoutX="15" layoutY="60" prefHeight="230" prefWidth="200"/>
-               <Button layoutX="15" layoutY="295" text="Book" onAction="#onBook"/>
+               <Label layoutX="83.0" layoutY="21.0" text="Reason" textFill="#00a396">
+                  <font>
+                     <Font name="System Bold" size="19.0" />
+                  </font></Label>
+               <TextArea fx:id="reasonArea" layoutX="15" layoutY="60" prefHeight="230" prefWidth="200" />
+               <Button layoutX="94.0" layoutY="292.0" onAction="#onBook" style="-fx-background-color: #02c39aff;" text="Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Button>
             </children>
          </Pane>
 
          <!-- Optional date picker -->
-         <DatePicker fx:id="datePicker" layoutX="316" layoutY="60"/>
+         <DatePicker fx:id="datePicker" layoutX="316" layoutY="60" style="-fx-border-color: #02c39aff #02c39aff;" />
       </Pane>
    </center>
    <bottom>
       <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 0.5;">
-         <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
-         <Label fx:id="statusLabel" text="Ready"/>
+         <padding><Insets bottom="8" left="12" right="12" top="8" /></padding>
+         <Label fx:id="statusLabel" text="Ready" />
       </HBox>
    </bottom>
 </BorderPane>
