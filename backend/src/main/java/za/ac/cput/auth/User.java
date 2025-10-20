@@ -1,4 +1,3 @@
-// src/main/java/za/ac/cput/auth/User.java
 package za.ac.cput.auth;
 
 import jakarta.persistence.*;

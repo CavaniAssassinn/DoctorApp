@@ -49,8 +49,5 @@ public class DoctorScheduleController {
     private static UUID requireDoctorId(UUID id){
         if (id == null) throw new IllegalArgumentException("doctorId query parameter is required (temporary until JWT is wired)");
         return id;
-
     }
-
-
 }

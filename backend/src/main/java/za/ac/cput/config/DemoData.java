@@ -1,4 +1,3 @@
-// src/main/java/za/ac/cput/config/DemoData.java
 package za.ac.cput.config;
 
 import org.springframework.boot.CommandLineRunner;

@@ -9,14 +9,14 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class SearchController {
-    @FXML private TextField queryField;
-    @FXML private TextField cityField;
-    @FXML private TextField specialityField;
+    @FXML private TextField  queryField;
+    @FXML private TextField  cityField;
+    @FXML private TextField  specialityField;
     @FXML private ListView<String> doctorsList;
     @FXML private DatePicker datePicker;
     @FXML private ListView<String> slotsList;
-    @FXML private TextArea reasonArea;
-    @FXML private Label statusLabel;
+    @FXML private TextArea  reasonArea;
+    @FXML private Label     statusLabel;
 
     private ApiClient api;
     private List<Map<String,Object>> doctors = new ArrayList<>();
@@ -28,28 +28,52 @@ public class SearchController {
         datePicker.setValue(LocalDate.now().plusDays(1));
         doctorsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         slotsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        // Clear slots when doctor selection changes
+        doctorsList.getSelectionModel().selectedIndexProperty().addListener((obs, o, n) -> {
+            slotsList.getItems().clear();
+            if (n != null && n.intValue() >= 0) {
+                status("Doctor selected — click “Load Slots”.");
+            }
+        });
     }
+
+    /* -------------------- Actions -------------------- */
 
     @FXML
     public void onSearch(){
-        statusLabel.setText("Searching...");
+        status("Searching…");
+        slotsList.getItems().clear();
+
         new Thread(() -> {
             try {
-                doctors = api.searchDoctors(queryField.getText(), cityField.getText(), specialityField.getText());
-                var items = FXCollections.<String>observableArrayList();
-                for (var d : doctors) {
-                    String name = Objects.toString(d.getOrDefault("fullName", d.getOrDefault("name", "Doctor")), "");
-                    String spec = Objects.toString(d.getOrDefault("speciality",""), "");
-                    Map<?,?> clinic = (Map<?,?>) d.getOrDefault("clinic", Collections.emptyMap());
-                    String city = Objects.toString(clinic.get("city"), "");                     items.add(name + " — " + spec + " (" + city + ") :: " + d.get("id"));
+                final List<Map<String,Object>> found =
+                        api.searchDoctors(val(queryField), val(cityField), val(specialityField));
+
+                final var items = FXCollections.<String>observableArrayList();
+                for (var d : found) {
+                    String name = str(d.getOrDefault("fullName", d.getOrDefault("name", "Doctor")));
+                    String spec = str(d.get("speciality"));
+
+                    // city can be top-level "clinicCity" OR inside a "clinic" map
+                    String city = str(d.get("clinicCity"));
+                    if (city.isBlank()) {
+                        Object clinic = d.get("clinic");
+                        if (clinic instanceof Map<?,?> m) {
+                            city = Objects.toString(m.get("city"), "");
+                        }
+                    }
+                    String id = Objects.toString(d.get("id"), "");
+                    items.add(name + " — " + spec + (city.isBlank() ? "" : " (" + city + ")") + " :: " + id);
                 }
-                javafx.application.Platform.runLater(() -> {
+
+                doctors = found;
+                runFx(() -> {
                     doctorsList.setItems(items);
-                    statusLabel.setText("Found " + doctors.size());
-                    slotsList.getItems().clear();
+                    status(found.isEmpty() ? "No doctors found." : "Found " + found.size() + ". Select one.");
                 });
             } catch (Exception ex){
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Search error: " + ex.getMessage()));
+                runFx(() -> status("Search error: " + ex.getMessage()));
             }
         }).start();
     }
@@ -57,20 +81,23 @@ public class SearchController {
     @FXML
     public void onLoadSlots(){
         int idx = doctorsList.getSelectionModel().getSelectedIndex();
-        if (idx < 0) { statusLabel.setText("Select a doctor"); return; }
-        String doctorId = Objects.toString(doctors.get(idx).get("id"), null);
-        LocalDate date = datePicker.getValue();
+        if (idx < 0) { status("Select a doctor first."); return; }
 
-        statusLabel.setText("Loading slots…");
+        final String doctorId = getDoctorId(idx);
+        final LocalDate date  = Optional.ofNullable(datePicker.getValue())
+                .orElse(LocalDate.now().plusDays(1));
+
+        status("Loading slots…");
         new Thread(() -> {
             try {
                 var slots = api.getSlots(doctorId, date);
-                javafx.application.Platform.runLater(() ->
-                        slotsList.setItems(FXCollections.observableArrayList(slots)));
-                javafx.application.Platform.runLater(() ->
-                        statusLabel.setText(slots.isEmpty() ? "No slots" : "Pick a slot then Book"));
+                runFx(() -> {
+                    slotsList.setItems(FXCollections.observableArrayList(slots));
+                    status(slots.isEmpty() ? "No available slots on " + date
+                            : "Pick a slot then click Book.");
+                });
             } catch (Exception ex){
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Slots error: " + ex.getMessage()));
+                runFx(() -> status("Slots error: " + ex.getMessage()));
             }
         }).start();
     }
@@ -78,24 +105,42 @@ public class SearchController {
     @FXML
     public void onBook(){
         String slot = slotsList.getSelectionModel().getSelectedItem();
-        if (slot == null) { statusLabel.setText("Pick a slot first"); return; }
-        String reason = Optional.ofNullable(reasonArea.getText()).orElse("Consultation").trim();
-        String patientId = api.userId().orElseThrow(() -> new RuntimeException("No user id"));
+        if (slot == null) { status("Pick a slot first."); return; }
 
-        statusLabel.setText("Booking…");
+        int idx = doctorsList.getSelectionModel().getSelectedIndex();
+        if (idx < 0) { status("Select a doctor first."); return; }
+
+        final String doctorId = getDoctorId(idx);
+        final String reason   = Optional.ofNullable(reasonArea.getText())
+                .map(String::trim).filter(s -> !s.isEmpty())
+                .orElse("Consultation");
+
+        status("Booking…");
         new Thread(() -> {
             try {
-                var res = api.book(extractDoctorId(), patientId, slot, reason);
-                javafx.application.Platform.runLater(() ->
-                        statusLabel.setText("Booked: " + res.get("id")));
+                // uses logged-in patient from ApiClient
+                var dto = api.book(doctorId, slot, reason);
+                runFx(() -> status("Booked ✓  ID: " + dto.id));
             } catch (Exception ex){
-                javafx.application.Platform.runLater(() -> statusLabel.setText("Book failed: " + ex.getMessage()));
+                runFx(() -> status("Book failed: " + ex.getMessage()));
             }
         }).start();
     }
 
-    private String extractDoctorId(){
-        int idx = doctorsList.getSelectionModel().getSelectedIndex();
-        return Objects.toString(doctors.get(idx).get("id"), null);
+    /* -------------------- Helpers -------------------- */
+
+    private static String val(TextField tf){ return tf == null ? "" : tf.getText(); }
+    public static String str(Object o){ return o == null ? "" : o.toString(); }
+
+    private String getDoctorId(int index){
+        return Objects.toString(doctors.get(index).get("id"), null);
+    }
+
+    private void status(String s){
+        if (statusLabel != null) statusLabel.setText(s);
+    }
+
+    private static void runFx(Runnable r){
+        javafx.application.Platform.runLater(r);
     }
 }

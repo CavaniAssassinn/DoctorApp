@@ -1,4 +1,3 @@
-// src/main/java/za/ac/cput/auth/AuthService.java
 package za.ac.cput.auth;
 
 import org.springframework.http.HttpStatus;
